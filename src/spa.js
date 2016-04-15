@@ -7,6 +7,21 @@
 }(this, function($, _, Backbone) {
     var SPA = {};
 
+    if (!$) {
+        console.error("jQuery is required by SPA");
+        return;
+    }
+
+    if (!_) {
+        console.error("Underscore is required by SPA");
+        return;
+    }
+
+    if (!Backbone) {
+        console.error("Backbone is required by SPA");
+        return;
+    }
+
     SPA.View = Backbone.View.extend({
         tagName: "div",
         initialize: function() {

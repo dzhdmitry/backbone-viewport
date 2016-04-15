@@ -174,9 +174,7 @@ Page will be created with given `attributes` if not exist.
 
 ### .navigate(fragment, [options])
 
-[Backbone.Router.](http://backbonejs.org/#Router-navigate)
-
-Inherited from `Backbone.Router`. 
+[Backbone.Router.navigate](http://backbonejs.org/#Router-navigate) inherited from `Backbone.Router`. 
 Use it in code to navigate to some page:
 
 ```javascript
@@ -207,7 +205,8 @@ var Collection = SPA.Collection.extend({
 });
 ```
 
-Router must be extended to use `Collection` and set `routes` nad handlers. Refer [Backbone.Router.extend](http://backbonejs.org/#Router-routes) for routing syntax.
+Router must be extended to use `Collection` and set `routes` and handlers. 
+Refer [Backbone.Router.routes](http://backbonejs.org/#Router-routes) for routing syntax.
 
 ```javascript
 var Router = SPA.Router.extend({
@@ -244,7 +243,7 @@ Refer [Router.initialize()](#constructor--initializeoptions) for options.
 
 When Router is initialized, or when URI is changed, Router begin to look for matching routes through `routes` property and if found, runs route's action. 
 In an action, you can analyze route params, and maybe load some data from server to get some data required by page.
-`this` in actions points to current router, so `this.go()` can be called to open a page with page attributes and data.
+`this` in actions points to current router, so `this.go()` can be called to open a page with its attributes and data.
 
 ## Handling hyperlinks
 

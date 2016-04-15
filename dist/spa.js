@@ -1,4 +1,4 @@
-/*! Single page application framework - v0.1.0 - 2016-04-15
+/*! Single page application framework - v0.1.1 - 2016-04-15
 * https://github.com/dzhdmitry/spa
 * Copyright (c) 2016 Dmitry Dzhuleba;
 * Licensed MIT
@@ -11,6 +11,21 @@
     }
 }(this, function($, _, Backbone) {
     var SPA = {};
+
+    if (!$) {
+        console.error("jQuery is required by SPA");
+        return;
+    }
+
+    if (!_) {
+        console.error("Underscore is required by SPA");
+        return;
+    }
+
+    if (!Backbone) {
+        console.error("Backbone is required by SPA");
+        return;
+    }
 
     SPA.View = Backbone.View.extend({
         tagName: "div",
