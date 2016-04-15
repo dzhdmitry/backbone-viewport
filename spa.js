@@ -1,4 +1,12 @@
-var SPA = (function() {
+(function (root, factory) {
+    if (typeof define === 'function' && define.amd) {
+        // AMD.
+        define(['jquery', 'underscore', 'backbone'], factory);
+    } else {
+        // Browser globals.
+        root.mylib = factory(root.$, root._, root.Backbone);
+    }
+}(this, function($, _, Backbone) {
     var SPA = {};
 
     SPA.View = Backbone.View.extend({
@@ -112,4 +120,4 @@ var SPA = (function() {
     });
 
     return SPA;
-})();
+}));
