@@ -4,7 +4,7 @@
         define(['jquery', 'underscore', 'backbone'], factory);
     } else {
         // Browser globals.
-        root.mylib = factory(root.$, root._, root.Backbone);
+        root.SPA = factory(root.$, root._, root.Backbone);
     }
 }(this, function($, _, Backbone) {
     var SPA = {};
