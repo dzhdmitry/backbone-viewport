@@ -7,6 +7,10 @@ SPA stores pages as Backbone's models with related Views.
 When [URL changes] user goes to some page, it retrieves URI, creates [page Model](#spamodel), renders [page View](#spaview), and put model into [Collection](#spacollection) with URI as unique id, and [shows](#show) it.
 If page for URI exists in Collection, it just shown.
 
+## Examples
+
+[Example with hash method](http://dzhdmitry.github.io/spa/)
+
 ## Classes
 
 ### SPA.View
@@ -39,8 +43,9 @@ Here is an example how `.template()` may look like:
 var View = SPA.View.extend({
     // ...
     template: function(data) {
-        var templateFn = _.template('template-page-' + this.model.get("name"));
-        
+        var template = $('#template-page-' + this.model.get("name")),
+            templateFn = _.template(template.html());
+
         return templateFn(data);
     }
 });
@@ -131,8 +136,8 @@ Creates new instance of `SPA.Router`.
 Runs `Backbone.history.start()` when initialized and begin listening to URL changes. 
 Options are:
 
-| Name | Type | Default | Description |
-| ---- | ---- | ------- | ----------- |
+| Name      | Type    | Default     | Description |
+| --------- | ----    | ----------- | ----------- |
 | el        | jQuery  | `$('body')` | Type of collection used by Router. |
 | pushState | boolean | false       | Defines which type of routing to use: `history.pushState` or hash. Will be transmitted to `Backbone.history.start()` |
 | root      | string  | '/'         | *Make sense only if pushState=true* Will be transmitted to `Backbone.history.start()` |

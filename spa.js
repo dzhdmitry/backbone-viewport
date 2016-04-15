@@ -87,7 +87,7 @@
         initialize: function(options) {
             var defaults = {
                 el: $('body'),
-                pushState: true,
+                pushState: false,
                 root: '/'
             };
 
