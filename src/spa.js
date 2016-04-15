@@ -1,9 +1,7 @@
 (function (root, factory) {
     if (typeof define === 'function' && define.amd) {
-        // AMD.
         define(['jquery', 'underscore', 'backbone'], factory);
     } else {
-        // Browser globals.
         root.SPA = factory(root.$, root._, root.Backbone);
     }
 }(this, function($, _, Backbone) {

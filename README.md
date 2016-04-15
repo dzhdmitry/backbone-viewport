@@ -7,6 +7,12 @@ SPA stores pages as Backbone's models with related Views.
 When [URL changes] user goes to some page, it retrieves URI, creates [page Model](#spamodel), renders [page View](#spaview), and put model into [Collection](#spacollection) with URI as unique id, and [shows](#show) it.
 If page for URI exists in Collection, it just shown.
 
+## Release
+
+[Development version](https://github.com/dzhdmitry/spa/blob/master/dist/spa.js)
+
+[Minimized production version](https://github.com/dzhdmitry/spa/blob/master/dist/spa.min.js)
+
 ## Examples
 
 [Example with hash method](http://dzhdmitry.github.io/spa/)
@@ -19,9 +25,9 @@ Inherited from [Backbone.View](http://backbonejs.org/#View).
 Represents page view. View is rendered on any model's change.
 Properties:
 
-| Name | Type | Default | Description |
-| ---- | ---- | ------- | ----------- |
-| tagName | string | 'div' | *Inherited from `Backbone.View`.* Tag name of container element |
+| Name    | Type   | Default | Description |
+| ------- | ------ | ------- | ----------- |
+| tagName | string | 'div'   | *Inherited from `Backbone.View`.* Tag name of container element |
 
 Methods:
 
@@ -105,8 +111,8 @@ Stores pages. Accessing pages to add/toggle them.
 When page is added, new `SPA.View` is created and linked to this page.
 Properties:
 
-| Name | Type | Default | Description |
-| ---- | ---- | ------- | ----------- |
+| Name  | Type           | Default   | Description |
+| ----- | -------------- | --------- | ----------- |
 | model | Backbone.Model | SPA.Model | Type of model used by collection. |
 | view  | Backbone.View  | SPA.View  | Type of view used by collection. Will be created on `collection.add()`. |
 
@@ -124,8 +130,8 @@ Listening to URI changes and handling assigned events.
 Contains `SPA.Collection` and accessing it to handle pages.
 Properties:
 
-| Name | Type | Default | Description |
-| ---- | ---- | ------- | ----------- |
+| Name       | Type                | Default        | Description |
+| ---------- | ------------------- | -------------- | ----------- |
 | collection | Backbone.Collection | SPA.Collection | Type of collection used by Router. |
 
 Methods:
