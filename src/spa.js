@@ -158,7 +158,7 @@
                 model = _.extend({id: uri}, attributes);
 
             this.pages.add(model);
-            this.pages.open(uri);
+            this.pages.open(model.id);
         }
     });
 

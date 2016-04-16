@@ -1,4 +1,4 @@
-/*! Single page application framework - v0.1.2 - 2016-04-16
+/*! Single page application framework - v0.1.3 - 2016-04-16
 * https://github.com/dzhdmitry/spa
 * Copyright (c) 2016 Dmitry Dzhuleba;
 * Licensed MIT
@@ -163,7 +163,7 @@
                 model = _.extend({id: uri}, attributes);
 
             this.pages.add(model);
-            this.pages.open(uri);
+            this.pages.open(model.id);
         }
     });
 

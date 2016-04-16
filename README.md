@@ -168,12 +168,12 @@ Run `Backbone.history.start()` with options `pushState` and `root` provided in [
 #### .go(attributes)
 
 Read document uri and activate page with given `attributes` (PlainObject). 
-If page not exists in collection, it will be created and added to collection with id=uri.
-URI is received:
+If page not exists in collection, it will be created with given `attributes` id=uri, and added to collection.
+URI is generated automatically:
 * If `pushState=true`: full URI of document
 * If `pushState=false`: hash part of URI
 
-Page will be created with given `attributes` if not exist.
+If page has been already added, it will be just [shown](#show).
 
 `SPA.Router.go()` is not supposed to be used anywhere except for Router's actions.
 
@@ -249,6 +249,28 @@ Refer [Router.initialize()](#constructor--initializeoptions) for options.
 When Router is initialized, or when URI is changed, Router begin to look for matching routes through `routes` property and if found, runs route's action. 
 In an action, you can analyze route params, and maybe load some data from server to get some data required by page.
 `this` in actions points to current router, so `this.go()` can be called to open a page with its attributes and data.
+
+SPA considers each page as unique for different uri. 
+But it may be useful to have one page for many uris, e.g one homepage for `/` and `/#!/`.
+To make it, provide id manually when go to a page:
+
+```javascript
+var Router = SPA.Router.extend({
+    // ...
+    routes: {
+        '': 'home',
+        '#!/': 'home'
+        // other routes
+    },
+    home: function() {
+        this.go({
+            id: 'home'
+            // page properties
+        });
+    }
+    // other actions
+});
+```
 
 ## Handling hyperlinks
 
