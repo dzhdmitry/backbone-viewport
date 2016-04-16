@@ -12,14 +12,6 @@ Install grunt and all dependencies as per `package.json`:
 npm install
 ```
 
-## Testing
-
-```
-grunt qunit
-```
-
-Run tests in `/test/*.html` files.
-
 ## Building
 
 ```
@@ -27,6 +19,15 @@ grunt build
 ```
 
 Creates `/dist/spa.js` and `/dist.spa.min.js` from `src/spa.js`.
+
+## Testing
+
+```
+grunt build
+grunt qunit
+```
+
+Build current source code and run tests in `/test/*.html` files.
 
 ```
 grunt default

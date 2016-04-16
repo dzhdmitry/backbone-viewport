@@ -1,4 +1,4 @@
-/*! Single page application framework - v0.1.4 - 2016-04-16
+/*! Single page application framework - v0.1.5 - 2016-04-16
 * https://github.com/dzhdmitry/spa
 * Copyright (c) 2016 Dmitry Dzhuleba;
 * Licensed MIT
@@ -64,6 +64,7 @@
     });
 
     SPA.Model = Backbone.Model.extend({
+        idAttribute: "uri",
         defaults: {
             name: "",     // Name/type of page. Use it to find a template for page
             active: true, // Indicates visibility of a page. When true, page container is set `display: block` css style, and `display:none` if false
@@ -92,13 +93,13 @@
         view: SPA.View,
         /**
          * Open page with given uri and hide others.
-         * Find page with `id=uri`, `show()` this page, `.hide()` other pages.
+         * Find and `show()` page with uri, `hide()` other pages.
          *
          * @param {String} uri
          */
         open: function(uri) {
             this.each(function(page) {
-                if (page.id == uri) {
+                if (page.get("uri") == uri) {
                     page.show();
                 } else {
                     page.hide();
@@ -149,16 +150,16 @@
         },
         /**
          * Read document uri and activate page with given `attributes` (PlainObject).
-         * If page not exists in collection, it will be created and added to collection with id=uri.
+         * If page not exists in collection, it will be created with given `attributes`, and added to collection.
          *
          * @param {Object} attributes Contains name, title, ...
          */
         go: function(attributes) {
             var uri = (this.pushState) ? Backbone.history.getPath() : Backbone.history.getHash(),
-                model = _.extend({id: uri}, attributes);
+                model = _.extend({uri: uri}, attributes);
 
             this.pages.add(model);
-            this.pages.open(model.id);
+            this.pages.open(model.uri);
         }
     });
 

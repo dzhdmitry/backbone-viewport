@@ -4,7 +4,7 @@ Based on jQuery and Backbone, it provides an API to create single page applicati
 Supports HTML5 `history.pushState` method and hash routing.
 
 SPA stores pages as Backbone's models with related Views.
-When [URL changes] user goes to some page, it retrieves URI, creates [page Model](#spamodel), renders [page View](#spaview), and put model into [Collection](#spacollection) with URI as unique id, and [shows](#show) it.
+When [URL changes] user goes to some page, it retrieves URI, creates [page Model](#spamodel), renders [page View](#spaview), and put model into [Collection](#spacollection) with unique URI, and [shows](#show) it.
 If page for URI exists in Collection, it just shown.
 
 ## Release
@@ -86,7 +86,7 @@ Attributes:
 
 | Name   | Type    | Default | Description |
 | ------ | ------- | ------- | ----------- |
-| id     | string  |      | Unique identifier of every page. SPA uses `Backbone.history` methods `getPath()` and `getHash()` for `history.pushState` and hash routing. |
+| uri    | string  |      | *Generated automatically.* Unique identifier of every page. SPA uses `Backbone.history` methods `getPath()` and `getHash()` for `history.pushState` and hash routing. |
 | name   | string  | ''   | Name/type of page. Use it to find a template for page. |
 | active | boolean | true | Indicates visibility of a page. When true, page container is set `display: block` css style, and `display:none` if false. Override [SPA.View.toggle()](#toggleactive) to use whatever behaviour. |
 | title  | string  | ''   | Will be set to document's title when page is shown. |
@@ -121,7 +121,7 @@ Methods:
 #### .open(uri)
 
 Open page with given uri and hide others.
-Find page with `id=uri`, `show()` this page, `.hide()` other pages.
+Find and `show()` page with uri, `hide()` other pages.
 
 ### SPA.Router
 
@@ -168,7 +168,7 @@ Run `Backbone.history.start()` with options `pushState` and `root` provided in [
 #### .go(attributes)
 
 Read document uri and activate page with given `attributes` (PlainObject). 
-If page not exists in collection, it will be created with given `attributes` id=uri, and added to collection.
+If page not exists in collection, it will be created with given `attributes`, and added to collection.
 URI is generated automatically:
 * If `pushState=true`: full URI of document
 * If `pushState=false`: hash part of URI
@@ -253,7 +253,7 @@ In an action, you can analyze route params, and maybe load some data from server
 
 SPA considers each page as unique for different uri. 
 But it may be useful to have one page for many uris, e.g one homepage for `/` and `/#!/`.
-To make it, provide id manually when go to a page:
+To make it, provide uri manually when go to a page:
 
 ```javascript
 var Router = SPA.Router.extend({
@@ -265,7 +265,7 @@ var Router = SPA.Router.extend({
     },
     home: function() {
         this.go({
-            id: 'home'
+            uri: 'home'
             // page properties
         });
     }

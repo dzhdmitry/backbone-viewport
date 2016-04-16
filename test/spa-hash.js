@@ -27,7 +27,7 @@ $(function() {
         },
         home: function() {
             this.go({
-                id: '-home-',
+                uri: '/',
                 name: 'home',
                 title: 'Home &ndash; Testing'
             });
@@ -56,7 +56,7 @@ $(function() {
     QUnit.test("Home", function(assert) {
         var done = assert.async();
 
-        var router = new app.Router({
+        new app.Router({
             el: $viewport
         });
 
@@ -74,7 +74,7 @@ $(function() {
     QUnit.test("First page", function(assert) {
         var done = assert.async();
 
-        var router = new app.Router({
+        new app.Router({
             el: $viewport
         });
 
@@ -93,7 +93,7 @@ $(function() {
     QUnit.test("Page with parameter", function(assert) {
         var done = assert.async();
 
-        var router = new app.Router({
+        new app.Router({
             el: $viewport
         });
 
