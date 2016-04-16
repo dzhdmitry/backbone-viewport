@@ -139,12 +139,13 @@ Methods:
 #### constructor / .initialize([options])
 
 Creates new instance of `SPA.Router`. 
-Runs `Backbone.history.start()` when initialized and begin listening to URL changes. 
+If `start=true`, runs `Backbone.history.start()` when initialized and begin listening to URL changes. 
 Options are:
 
 | Name      | Type    | Default     | Description |
 | --------- | ----    | ----------- | ----------- |
 | el        | jQuery  | `$('body')` | Type of collection used by Router. |
+| start     | boolean | true        | Start to listen URI changes when initialized (Run [Router.start()](#start)). |
 | pushState | boolean | false       | Defines which type of routing to use: `history.pushState` or hash. Will be transmitted to `Backbone.history.start()` |
 | root      | string  | '/'         | *Make sense only if pushState=true* Will be transmitted to `Backbone.history.start()` |
 
@@ -159,6 +160,10 @@ var router = new Router({
     root: '/path/custom/'
 });
 ```
+
+#### .start()
+
+Run `Backbone.history.start()` with options `pushState` and `root` provided in [constructor](#constructor--initializeoptions).
 
 #### .go(attributes)
 

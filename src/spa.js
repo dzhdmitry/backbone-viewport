@@ -113,12 +113,14 @@
             var self = this,
                 defaults = {
                     el: $('body'),
+                    start: true,
                     pushState: false,
                     root: '/'
                 },
                 settings = _.extend({}, defaults, options);
 
             this.pushState = settings.pushState;
+            this.root = settings.root;
             this.pages = new this.collection();
 
             this.listenTo(this.pages, 'add', function(model) {
@@ -127,12 +129,23 @@
                 settings.el.append(view.render().el);
             });
 
-            Backbone.history.start({
-                pushState: settings.pushState,
-                root: settings.root
-            });
+            if (settings.start) {
+                Backbone.history.start({
+                    pushState: settings.pushState,
+                    root: settings.root
+                });
+            }
 
             SPA.Router.__super__.initialize.call(this, options);
+        },
+        /**
+         * Run `Backbone.history.start()` with options `pushState` and `root` provided in constructor
+         */
+        start: function() {
+            Backbone.history.start({
+                pushState: this.pushState,
+                root: this.root
+            });
         },
         /**
          * Read document uri and activate page with given `attributes` (PlainObject).
