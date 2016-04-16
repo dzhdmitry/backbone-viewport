@@ -8,6 +8,9 @@
 		"name": "Dmitry Dzhuleba",
 		"email": "dzhdmitry@gmail.com"
 	},
+	"scripts": {
+		"test": "grunt qunit"
+	},
 	"repository": {
 		"type": "git",
 		"url": "git://github.com/dzhdmitry/spa.git"

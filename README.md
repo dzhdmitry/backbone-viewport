@@ -173,7 +173,8 @@ URI is generated automatically:
 * If `pushState=true`: full URI of document
 * If `pushState=false`: hash part of URI
 
-If page has been already added, it will be just [shown](#show).
+If page has been already added in collection, it will be just [shown](#show). 
+*None of properties will be updated.*
 
 `SPA.Router.go()` is not supposed to be used anywhere except for Router's actions.
 

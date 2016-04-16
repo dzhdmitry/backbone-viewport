@@ -1,6 +1,6 @@
 # Compiling sources
 
-Source code can be compiled by [Grunt](http://gruntjs.com/).
+Source code can be tested and compiled by [Grunt](http://gruntjs.com/).
 
 ## Installation
 
@@ -12,6 +12,14 @@ Install grunt and all dependencies as per `package.json`:
 npm install
 ```
 
+## Testing
+
+```
+grunt qunit
+```
+
+Run tests in `/test/*.html` files.
+
 ## Building
 
 ```
@@ -19,3 +27,9 @@ grunt build
 ```
 
 Creates `/dist/spa.js` and `/dist.spa.min.js` from `src/spa.js`.
+
+```
+grunt default
+```
+
+Run all tests and make build.
