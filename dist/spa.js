@@ -1,21 +1,16 @@
-/*! Single page application framework - v0.1.3 - 2016-04-16
+/*! Single page application framework - v0.1.4 - 2016-04-16
 * https://github.com/dzhdmitry/spa
 * Copyright (c) 2016 Dmitry Dzhuleba;
 * Licensed MIT
 */
 (function (root, factory) {
     if (typeof define === 'function' && define.amd) {
-        define(['jquery', 'underscore', 'backbone'], factory);
+        define(['underscore', 'backbone'], factory);
     } else {
-        root.SPA = factory(root.$, root._, root.Backbone);
+        root.SPA = factory(root._, root.Backbone);
     }
-}(this, function($, _, Backbone) {
+}(this, function(_, Backbone) {
     var SPA = {};
-
-    if (!$) {
-        console.error("jQuery is required by SPA");
-        return;
-    }
 
     if (!_) {
         console.error("Underscore is required by SPA");
@@ -81,7 +76,7 @@
          */
         show: function() {
             this.set("active", true);
-            $('title').html(this.get("title"));
+            Backbone.$('title').html(this.get("title"));
         },
         /**
          * Set `page.active` property to `false`.
@@ -117,7 +112,7 @@
         initialize: function(options) {
             var self = this,
                 defaults = {
-                    el: $('body'),
+                    el: Backbone.$('body'),
                     start: true,
                     pushState: false,
                     root: '/'

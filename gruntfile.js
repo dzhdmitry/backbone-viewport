@@ -38,11 +38,3 @@ module.exports = function(grunt) {
 	grunt.registerTask('build', ['concat', 'uglify']);
 	grunt.registerTask('default', ['qunit', 'build']);
 };
-
-/*
-npm-install grunt  - install grunt locally
-npm-install  - install all dependencies (uglify etc)
-
-grunt qunit
-grunt default
- */
