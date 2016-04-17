@@ -7,6 +7,12 @@ SPA stores pages as Backbone's models with related Views.
 When [URL changes] user goes to some page, it retrieves URI, creates [page Model](#spamodel), renders [page View](#spaview), and put model into [Collection](#spacollection) with unique URI, and [shows](#show) it.
 If page for URI exists in Collection, it just shown.
 
+## Requirements
+
+* jQuery/Zepto/$-compatible framework can be used by Backbone.js
+* Underscore.js
+* Backbone.js
+
 ## Release
 
 [Development version](https://github.com/dzhdmitry/spa/blob/master/dist/spa.js)
@@ -265,7 +271,7 @@ var Router = SPA.Router.extend({
     },
     home: function() {
         this.go({
-            uri: 'home'
+            uri: '/'
             // page properties
         });
     }
