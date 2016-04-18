@@ -44,7 +44,8 @@ $(function() {
             '!/': 'home',
             '!/first': 'first',
             '!/parameter/:p': 'parameter',
-            '!/template/:p': 'template'
+            '!/template/:p': 'template',
+            '!/dynamic': 'dynamic'
         },
         home: function() {
             this.go({
@@ -71,6 +72,14 @@ $(function() {
                 name: 'template',
                 title: 'Pages with one template &ndash; Testing',
                 parameter: p
+            });
+        },
+        dynamic: function() {
+            this.go({
+                name: 'dynamic',
+                title: 'Dynamic page &ndash; Testing'
+            }, {
+                force: true
             });
         }
     });
@@ -124,8 +133,6 @@ $(function() {
             assert.equal($visible.find('.page-name').html(), "first", "Page is first");
             assert.equal($visible.length, 1, "One page is active");
 
-            $viewport.find('div.my-page:visible').find('span.first-content').html("changed");
-
             history.back();
 
             setTimeout(function() {
@@ -145,7 +152,6 @@ $(function() {
                     assert.equal($viewport.find('div.my-page').length, 2, "Still two pages in viewport");
                     assert.equal($visible.find('.page-name').html(), "first", "Page is first");
                     assert.equal($visible.length, 1, "One page is active");
-                    assert.equal($visible.find('span.first-content').html(), "changed", "Page is NOT re-rendered");
 
                     done();
                 }, 100);
@@ -212,6 +218,58 @@ $(function() {
                     assert.equal($title.html(), 'Pages with one template – Testing', "Title set");
                     assert.equal($viewport.find('div.my-page').length, 3, "Still three pages in viewport");
                     assert.equal($viewport.find('div.my-page:visible').find('.page-parameter').html(), "a", "Parameter transmitted");
+
+                    done();
+                }, 100);
+            }, 100);
+        }, 100);
+    });
+
+    QUnit.test("Static page", function(assert) {
+        var done = assert.async();
+
+        new app.Router({
+            el: $viewport
+        });
+
+        $viewport.find('div.my-page:visible').find('span.home-content').html("changed");
+
+        document.location.href = "#!/first";
+
+        setTimeout(function() {
+            document.location.href = "#!/";
+
+            setTimeout(function() {
+                var $visible = $viewport.find('div.my-page:visible');
+
+                assert.equal($visible.find('span.home-content').html(), "changed", "Page is NOT re-rendered");
+
+                done();
+            }, 100);
+        }, 100);
+    });
+
+    QUnit.test("Dynamic page", function(assert) {
+        var done = assert.async();
+
+        new app.Router({
+            el: $viewport
+        });
+
+        document.location.href = "#!/dynamic";
+
+        setTimeout(function() {
+            $viewport.find('div.my-page:visible').find('span.dynamic-content').html("changed");
+
+            document.location.href = "#!/";
+
+            setTimeout(function() {
+                document.location.href = "#!/dynamic";
+
+                setTimeout(function() {
+                    var $visible = $viewport.find('div.my-page:visible');
+
+                    assert.equal($visible.find('span.dynamic-content').html(), "", "Page has been re-rendered");
 
                     done();
                 }, 100);

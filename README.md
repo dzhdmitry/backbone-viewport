@@ -78,7 +78,7 @@ router.go({ name: "discovery", content: "" /* , ... */ });
 
 ##### .render()
 
-Renders model attributes by [template](templatedata) and [toggles](#toggleactive) the container by model's `active` attribute.
+Renders model attributes by [template](templatedata).
 
 ##### .toggle(active)
 
@@ -95,7 +95,7 @@ Contains page's attributes and data, which can be rendered in view.
 | Name   | Type    | Default | Description |
 | ------ | ------- | ------- | ----------- |
 | uri    | string  |      | *Generated automatically.* Unique identifier of every page. SPA uses `Backbone.history` methods `getPath()` and `getHash()` for `history.pushState` and hash routing. |
-| active | boolean | true | Indicates visibility of a page. When true, page container is set `display: block` css style, and `display:none` if false. Override [SPA.View.toggle()](#toggleactive) to use whatever behaviour. |
+| active | boolean | true | Indicates visibility of a page. When changed, page container is set `display: block` css style if true, and `display:none` if false. Override [SPA.View.toggle()](#toggleactive) to use whatever behaviour. |
 | title  | string  | ''   | Will be set to document's title when page is shown. |
 
 All model's attributes are available in `view.template()`.
@@ -104,7 +104,7 @@ All model's attributes are available in `view.template()`.
 
 ##### .show()
 
-Set `page.active` property to `true` (must cause view rendering) and copy page's title to document.
+Set `page.active` property to `true` and copy page's title to document.
 Triggers `shown` event.
 
 ##### .hide()
@@ -114,10 +114,11 @@ Triggers `hidden` event.
 
 #### Events
 
-| Event type | Deescription |
+| Event type | Description |
 | ---------- | ------------ |
-| shown      | Fires when page was hidden and became shown |
-| hidden     | Fires when page was shown and became hidden |
+| shown      | Fires when page was hidden and became shown. |
+| hidden     | Fires when page was shown and became hidden. |
+| render     | Fires when page content needed to be rendered. |
 
 ### SPA.Collection
 
@@ -183,7 +184,7 @@ var router = new Router({
 
 Run `Backbone.history.start()` with options `pushState` and `root` provided in [constructor](#constructor--initializeoptions).
 
-##### .go(attributes)
+##### .go(attributes[, options])
 
 Read document uri and activate page with given `attributes` (PlainObject). 
 If page not exists in collection, it will be created with given `attributes`, and added to collection.
@@ -191,12 +192,13 @@ URI is generated automatically:
 * If `pushState=true`: full URI of document
 * If `pushState=false`: hash part of URI
 
-If page has been already added in collection, it will be just [shown](#show). 
-*None of properties will be updated.*
+If page has been already added in collection, it will be just [shown](#show), none of attributes will be updated and view will not be re-rendered.
+
+Provide `{force: true}` in options to update properties of model and make it re-render its view.
 
 `SPA.Router.go()` is not supposed to be used anywhere except for Router's actions.
 
-##### .navigate(fragment, [options])
+##### .navigate(fragment[, options])
 
 [Backbone.Router.navigate](http://backbonejs.org/#Router-navigate) inherited from `Backbone.Router`. 
 Use it in code to navigate to some page:

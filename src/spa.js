@@ -20,7 +20,8 @@
     SPA.View = Backbone.View.extend({
         tagName: "div",
         initialize: function() {
-            this.listenTo(this.model, 'change', this.render);
+            this.listenTo(this.model, 'render', this.render);
+            this.listenTo(this.model, 'change:active', this.toggleActive);
         },
         /**
          * Must be overridden.
@@ -38,15 +39,9 @@
          * @returns {SPA.View}
          */
         render: function() {
-            if (!this.model.rendered) {
-                var html = this.template(this.model.toJSON());
+            var html = this.template(this.model.toJSON());
 
-                this.$el.html(html);
-
-                this.model.rendered = true;
-            }
-
-            this.toggle(this.model.get("active"));
+            this.$el.html(html);
 
             return this;
         },
@@ -60,6 +55,9 @@
             var display = active ? "block" : "none";
 
             this.$el.css("display", display);
+        },
+        toggleActive: function() {
+            this.toggle(this.model.get("active"));
         }
     });
 
@@ -69,11 +67,6 @@
             active: false, // Indicates visibility of a page. When true, page container is set `display: block` css style, and `display:none` if false
             title: ""      // Will be set to document's title when page is shown
             // All model's attributes are available in `view.template()`
-        },
-        initialize: function(attributes, options) {
-            this.rendered = false;
-
-            SPA.Model.__super__.initialize.call(this, attributes, options);
         },
         /**
          * Set `page.active` property to `true` (must cause view rendering) and copy page's title to document.
@@ -173,12 +166,33 @@
          * If page not exists in collection, it will be created with given `attributes`, and added to collection.
          *
          * @param {Object} attributes
+         * @param {Object=} options
          */
-        go: function(attributes) {
+        go: function(attributes, options) {
             var uri = (this.pushState) ? Backbone.history.getPath() : Backbone.history.getHash(),
-                modelAttributes = _.extend({uri: uri}, attributes);
+                modelAttributes = _.extend({uri: uri}, attributes),
+                model;
 
-            this.pages.add(modelAttributes);
+            var settings = _.extend({}, {
+                force: false
+            }, options);
+
+            if (settings.force) {
+                model = this.pages.add(modelAttributes, {
+                    merge: true
+                });
+
+                model.trigger("render");
+            } else {
+                var existsBefore = this.pages.has(modelAttributes.uri);
+
+                model = this.pages.add(modelAttributes);
+
+                if (!existsBefore) {
+                    model.trigger("render");
+                }
+            }
+
             this.pages.open(modelAttributes.uri);
         }
     });
