@@ -1,4 +1,4 @@
-/*! Single page application framework - v0.2.0 - 2016-04-18
+/*! Single page application framework - v0.2.1 - 2016-04-18
 * https://github.com/dzhdmitry/spa
 * Copyright (c) 2016 Dmitry Dzhuleba;
 * Licensed MIT
@@ -43,9 +43,14 @@
          * @returns {SPA.View}
          */
         render: function() {
-            var html = this.template(this.model.toJSON());
+            if (!this.model.rendered) {
+                var html = this.template(this.model.toJSON());
 
-            this.$el.html(html);
+                this.$el.html(html);
+
+                this.model.rendered = true;
+            }
+
             this.toggle(this.model.get("active"));
 
             return this;
@@ -66,24 +71,37 @@
     SPA.Model = Backbone.Model.extend({
         idAttribute: "uri",
         defaults: {
-            active: true, // Indicates visibility of a page. When true, page container is set `display: block` css style, and `display:none` if false
-            title: ""     // Will be set to document's title when page is shown
+            active: false, // Indicates visibility of a page. When true, page container is set `display: block` css style, and `display:none` if false
+            title: ""      // Will be set to document's title when page is shown
             // All model's attributes are available in `view.template()`
+        },
+        initialize: function(attributes, options) {
+            this.rendered = false;
+
+            SPA.Model.__super__.initialize.call(this, attributes, options);
         },
         /**
          * Set `page.active` property to `true` (must cause view rendering) and copy page's title to document.
-         * Causes view.render().
+         * Triggers `shown` event.
          */
         show: function() {
             this.set("active", true);
             Backbone.$('title').html(this.get("title"));
+
+            if (this.hasChanged("active")) {
+                this.trigger("shown");
+            }
         },
         /**
          * Set `page.active` property to `false`.
-         * Causes `view.render()`.
+         * Triggers `hidden` event.
          */
         hide: function() {
             this.set("active", false);
+
+            if (this.hasChanged("active")) {
+                this.trigger("hidden");
+            }
         }
     });
 

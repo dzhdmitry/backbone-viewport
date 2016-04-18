@@ -1,5 +1,9 @@
 $(function() {
     var $viewport = $('#qunit-fixture'),
+        counter = {
+            show: 0,
+            hide: 0
+        },
         app = {};
 
     // 1. SPA setup
@@ -13,8 +17,23 @@ $(function() {
         }
     });
 
+    app.Model = SPA.Model.extend({
+        initialize: function(attributes, options) {
+            this.on("shown", function() {
+                counter.show++;
+            });
+
+            this.on("hidden", function() {
+                counter.hide++;
+            });
+
+            app.Model.__super__.initialize.call(this, attributes, options);
+        }
+    });
+
     app.Collection = SPA.Collection.extend({
-        view: app.View
+        view: app.View,
+        model: app.Model
     });
 
     app.Router = SPA.Router.extend({
@@ -58,6 +77,10 @@ $(function() {
     // 2. Testing setup
     QUnit.testStart(function() {
         document.location.hash = "";
+        counter = {
+            show: 0,
+            hide: 0
+        };
     });
 
     QUnit.testDone(function() {
@@ -168,6 +191,8 @@ $(function() {
                 document.location.href = "#!/template/a";
 
                 setTimeout(function() {
+                    assert.equal(counter.show, 4, "shown event");
+                    assert.equal(counter.hide, 3, "hidden event");
                     assert.equal($('title').html(), 'Pages with one template – Testing', "Title set");
                     assert.equal($viewport.find('.my-page').length, 3, "Still three pages in viewport");
                     assert.equal($viewport.find('.my-page:visible').find('.page-parameter').html(), "a", "Parameter transmitted");

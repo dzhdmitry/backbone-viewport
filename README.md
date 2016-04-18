@@ -29,15 +29,16 @@ If page for URI exists in Collection, it just shown.
 
 Inherited from [Backbone.View](http://backbonejs.org/#View).
 Represents page view. View is rendered on any model's change.
-Properties:
+
+#### Attributes
 
 | Name    | Type   | Default | Description |
 | ------- | ------ | ------- | ----------- |
 | tagName | string | 'div'   | *Inherited from `Backbone.View`.* Tag name of container element |
 
-Methods:
+#### Methods
 
-#### .template(data)
+##### .template(data)
 
 **Must be overridden.** Receives model attributes and return rendered string.
 
@@ -75,11 +76,11 @@ router.go({ name: "discovery", content: "" /* , ... */ });
 ...content...
 ```
 
-#### .render()
+##### .render()
 
 Renders model attributes by [template](templatedata) and [toggles](#toggleactive) the container by model's `active` attribute.
 
-#### .toggle(active)
+##### .toggle(active)
 
 Set `display: block` css style to page container if `active=true`, or `display:none` if false.
 Override it to use different behaviour.
@@ -88,7 +89,8 @@ Override it to use different behaviour.
 
 Inherited from [Backbone.Model](http://backbonejs.org/#Model). 
 Contains page's attributes and data, which can be rendered in view.
-Attributes:
+
+#### Attributes
 
 | Name   | Type    | Default | Description |
 | ------ | ------- | ------- | ----------- |
@@ -97,33 +99,42 @@ Attributes:
 | title  | string  | ''   | Will be set to document's title when page is shown. |
 
 All model's attributes are available in `view.template()`.
-Methods:
 
-#### .show()
+#### Methods
+
+##### .show()
 
 Set `page.active` property to `true` (must cause view rendering) and copy page's title to document.
-Causes [view.render()](#render).
+Triggers `shown` event.
 
-#### .hide()
+##### .hide()
 
 Set `page.active` property to `false`.
-Causes `view.render()`.
+Triggers `hidden` event.
+
+#### Events
+
+| Event type | Deescription |
+| ---------- | ------------ |
+| shown      | Fires when page was hidden and became shown |
+| hidden     | Fires when page was shown and became hidden |
 
 ### SPA.Collection
 
 Inherited from [Backbone.Collection](http://backbonejs.org/#Collection). 
 Stores pages. Accessing pages to add/toggle them. 
 When page is added, new `SPA.View` is created and linked to this page.
-Properties:
+
+#### Properties
 
 | Name  | Type           | Default   | Description |
 | ----- | -------------- | --------- | ----------- |
 | model | Backbone.Model | SPA.Model | Type of model used by collection. |
 | view  | Backbone.View  | SPA.View  | Type of view used by collection. Will be created on `collection.add()`. |
 
-Methods:
+#### Methods
 
-#### .open(uri)
+##### .open(uri)
 
 Open page with given uri and hide others.
 Find and `show()` page with uri, `hide()` other pages.
@@ -133,7 +144,8 @@ Find and `show()` page with uri, `hide()` other pages.
 Inherited from [Backbone.Router](http://backbonejs.org/#Router). 
 Listening to URI changes and handling assigned events. 
 Contains `SPA.Collection` and accessing it to handle pages.
-Properties:
+
+#### Properties
 
 | Name       | Type                | Default        | Description |
 | ---------- | ------------------- | -------------- | ----------- |
@@ -141,7 +153,7 @@ Properties:
 
 Methods:
 
-#### constructor / .initialize([options])
+##### constructor / .initialize([options])
 
 Creates new instance of `SPA.Router`. 
 If `start=true`, runs `Backbone.history.start()` when initialized and begin listening to URL changes. 
@@ -166,11 +178,11 @@ var router = new Router({
 });
 ```
 
-#### .start()
+##### .start()
 
 Run `Backbone.history.start()` with options `pushState` and `root` provided in [constructor](#constructor--initializeoptions).
 
-#### .go(attributes)
+##### .go(attributes)
 
 Read document uri and activate page with given `attributes` (PlainObject). 
 If page not exists in collection, it will be created with given `attributes`, and added to collection.
@@ -183,7 +195,7 @@ If page has been already added in collection, it will be just [shown](#show).
 
 `SPA.Router.go()` is not supposed to be used anywhere except for Router's actions.
 
-### .navigate(fragment, [options])
+##### .navigate(fragment, [options])
 
 [Backbone.Router.navigate](http://backbonejs.org/#Router-navigate) inherited from `Backbone.Router`. 
 Use it in code to navigate to some page:
