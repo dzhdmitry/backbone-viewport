@@ -127,10 +127,11 @@ When page is added, new `SPA.View` is created and linked to this page.
 
 #### Properties
 
-| Name  | Type           | Default   | Description |
-| ----- | -------------- | --------- | ----------- |
-| model | Backbone.Model | SPA.Model | Type of model used by collection. |
-| view  | Backbone.View  | SPA.View  | Type of view used by collection. Will be created on `collection.add()`. |
+| Name  | Type           | Default     | Description |
+| ----- | -------------- | ----------- | ----------- |
+| el    | jQuery         | `$('body')` | Pages container. Available after router initialized. *Not allowed in `extend()`.* |
+| model | Backbone.Model | SPA.Model   | Type of model used by collection. |
+| view  | Backbone.View  | SPA.View    | Type of view used by collection. Will be created on `collection.add()`. |
 
 #### Methods
 

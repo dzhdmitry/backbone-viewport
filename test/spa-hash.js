@@ -1,5 +1,6 @@
 $(function() {
     var $viewport = $('#qunit-fixture'),
+        $title = $('title'),
         counter = {
             show: 0,
             hide: 0
@@ -116,26 +117,35 @@ $(function() {
         document.location.href = "#!/first";
 
         setTimeout(function() {
-            assert.equal($('title').html(), 'First page – Testing', "Title set");
-            assert.equal($viewport.find('.my-page').length, 2, "Two pages in viewport");
-            assert.equal($viewport.find('.my-page:visible').find('.page-name').html(), "first", "Page is first");
-            assert.equal($viewport.find('.my-page:visible').length, 1, "One page is active");
+            var $visible = $viewport.find('div.my-page:visible');
+
+            assert.equal($title.html(), 'First page – Testing', "Title set");
+            assert.equal($viewport.find('div.my-page').length, 2, "Two pages in viewport");
+            assert.equal($visible.find('.page-name').html(), "first", "Page is first");
+            assert.equal($visible.length, 1, "One page is active");
+
+            $viewport.find('div.my-page:visible').find('span.first-content').html("changed");
 
             history.back();
 
             setTimeout(function() {
-                assert.equal($('title').html(), 'Home – Testing', "history.back(): Title set");
-                assert.equal($viewport.find('.my-page').length, 2, "Still two pages in viewport");
-                assert.equal($viewport.find('.my-page:visible').find('.page-name').html(), "home", "Page is home");
-                assert.equal($viewport.find('.my-page:visible').length, 1, "One page is active");
+                var $visible = $viewport.find('div.my-page:visible');
+
+                assert.equal($title.html(), 'Home – Testing', "history.back(): Title set");
+                assert.equal($viewport.find('div.my-page').length, 2, "Still two pages in viewport");
+                assert.equal($visible.find('.page-name').html(), "home", "Page is home");
+                assert.equal($visible.length, 1, "One page is active");
 
                 history.forward();
 
                 setTimeout(function() {
-                    assert.equal($('title').html(), 'First page – Testing', "history.forward(): Title set");
-                    assert.equal($viewport.find('.my-page').length, 2, "Still two pages in viewport");
-                    assert.equal($viewport.find('.my-page:visible').find('.page-name').html(), "first", "Page is first");
-                    assert.equal($viewport.find('.my-page:visible').length, 1, "One page is active");
+                    var $visible = $viewport.find('div.my-page:visible');
+
+                    assert.equal($title.html(), 'First page – Testing', "history.forward(): Title set");
+                    assert.equal($viewport.find('div.my-page').length, 2, "Still two pages in viewport");
+                    assert.equal($visible.find('.page-name').html(), "first", "Page is first");
+                    assert.equal($visible.length, 1, "One page is active");
+                    assert.equal($visible.find('span.first-content').html(), "changed", "Page is NOT re-rendered");
 
                     done();
                 }, 100);
@@ -153,10 +163,12 @@ $(function() {
         document.location.href = "#!/parameter/100";
 
         setTimeout(function() {
-            assert.equal($('title').html(), 'Page with parameter – Testing', "Title set");
+            var $visible = $viewport.find('div.my-page:visible');
+
+            assert.equal($title.html(), 'Page with parameter – Testing', "Title set");
             assert.equal($viewport.find('.my-page').length, 2, "Two pages in viewport");
-            assert.equal($viewport.find('.my-page:visible').find('.page-parameter').html(), "100", "Parameter transmitted");
-            assert.equal($viewport.find('.my-page:visible').length, 1, "One page is active");
+            assert.equal($visible.find('.page-parameter').html(), "100", "Parameter transmitted");
+            assert.equal($visible.length, 1, "One page is active");
 
             done();
         }, 100);
@@ -172,20 +184,24 @@ $(function() {
         document.location.href = "#!/template/a";
 
         setTimeout(function() {
-            assert.equal($('title').html(), 'Pages with one template – Testing', "Title set");
-            assert.equal($viewport.find('.my-page').length, 2, "Two pages in viewport");
-            assert.equal($viewport.find('.my-page:visible').find('.page-name').html(), "template", "Page is template");
-            assert.equal($viewport.find('.my-page:visible').find('.page-parameter').html(), "a", "Parameter transmitted");
-            assert.equal($viewport.find('.my-page:visible').length, 1, "One page is active");
+            var $visible = $viewport.find('div.my-page:visible');
+
+            assert.equal($title.html(), 'Pages with one template – Testing', "Title set");
+            assert.equal($viewport.find('div.my-page').length, 2, "Two pages in viewport");
+            assert.equal($visible.find('.page-name').html(), "template", "Page is template");
+            assert.equal($visible.find('.page-parameter').html(), "a", "Parameter transmitted");
+            assert.equal($visible.length, 1, "One page is active");
 
             document.location.href = "#!/template/b";
 
             setTimeout(function() {
-                assert.equal($('title').html(), 'Pages with one template – Testing', "Title set");
-                assert.equal($viewport.find('.my-page').length, 3, "Three pages in viewport");
-                assert.equal($viewport.find('.my-page:visible').find('.page-name').html(), "template", "Page is template");
-                assert.equal($viewport.find('.my-page:visible').find('.page-parameter').html(), "b", "Parameter transmitted");
-                assert.equal($viewport.find('.my-page:visible').length, 1, "One page is active");
+                var $visible = $viewport.find('div.my-page:visible');
+
+                assert.equal($title.html(), 'Pages with one template – Testing', "Title set");
+                assert.equal($viewport.find('div.my-page').length, 3, "Three pages in viewport");
+                assert.equal($visible.find('.page-name').html(), "template", "Page is template");
+                assert.equal($visible.find('.page-parameter').html(), "b", "Parameter transmitted");
+                assert.equal($visible.length, 1, "One page is active");
 
                 // Go to /template/a again to make sure no excess views
                 document.location.href = "#!/template/a";
@@ -193,9 +209,9 @@ $(function() {
                 setTimeout(function() {
                     assert.equal(counter.show, 4, "shown event");
                     assert.equal(counter.hide, 3, "hidden event");
-                    assert.equal($('title').html(), 'Pages with one template – Testing', "Title set");
-                    assert.equal($viewport.find('.my-page').length, 3, "Still three pages in viewport");
-                    assert.equal($viewport.find('.my-page:visible').find('.page-parameter').html(), "a", "Parameter transmitted");
+                    assert.equal($title.html(), 'Pages with one template – Testing', "Title set");
+                    assert.equal($viewport.find('div.my-page').length, 3, "Still three pages in viewport");
+                    assert.equal($viewport.find('div.my-page:visible').find('.page-parameter').html(), "a", "Parameter transmitted");
 
                     done();
                 }, 100);

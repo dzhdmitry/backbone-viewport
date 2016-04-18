@@ -104,6 +104,16 @@
         model: SPA.Model,
         view: SPA.View,
         /**
+         * Create view for given model
+         *
+         * @param {SPA.Model} model
+         */
+        createView: function(model) {
+            var view = new this.view({model: model});
+
+            this.el.append(view.render().el);
+        },
+        /**
          * Open page with given uri and hide others.
          * Find and `show()` page with uri, `hide()` other pages.
          *
@@ -123,8 +133,7 @@
     SPA.Router = Backbone.Router.extend({
         collection: SPA.Collection,
         initialize: function(options) {
-            var self = this,
-                defaults = {
+            var defaults = {
                     el: Backbone.$('body'),
                     start: true,
                     pushState: false,
@@ -135,11 +144,10 @@
             this.pushState = settings.pushState;
             this.root = settings.root;
             this.pages = new this.collection();
+            this.pages.el = settings.el;
 
-            this.listenTo(this.pages, 'add', function(model) {
-                var view = new self.pages.view({model: model});
-
-                settings.el.append(view.render().el);
+            this.listenTo(this.pages, 'add', function(model, collection) {
+                collection.createView(model);
             });
 
             if (settings.start) {
@@ -168,10 +176,10 @@
          */
         go: function(attributes) {
             var uri = (this.pushState) ? Backbone.history.getPath() : Backbone.history.getHash(),
-                model = _.extend({uri: uri}, attributes);
+                modelAttributes = _.extend({uri: uri}, attributes);
 
-            this.pages.add(model);
-            this.pages.open(model.uri);
+            this.pages.add(modelAttributes);
+            this.pages.open(modelAttributes.uri);
         }
     });
 

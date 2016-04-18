@@ -3,7 +3,7 @@
 	"title": "Single page application framework",
 	"description": "Tiny single page application framework",
 	"homepage": "https://github.com/dzhdmitry/spa",
-	"version": "0.2.1",
+	"version": "0.2.2",
 	"author": {
 		"name": "Dmitry Dzhuleba",
 		"email": "dzhdmitry@gmail.com"
