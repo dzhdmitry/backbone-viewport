@@ -93,7 +93,6 @@ Attributes:
 | Name   | Type    | Default | Description |
 | ------ | ------- | ------- | ----------- |
 | uri    | string  |      | *Generated automatically.* Unique identifier of every page. SPA uses `Backbone.history` methods `getPath()` and `getHash()` for `history.pushState` and hash routing. |
-| name   | string  | ''   | Name/type of page. Use it to find a template for page. |
 | active | boolean | true | Indicates visibility of a page. When true, page container is set `display: block` css style, and `display:none` if false. Override [SPA.View.toggle()](#toggleactive) to use whatever behaviour. |
 | title  | string  | ''   | Will be set to document's title when page is shown. |
 
@@ -225,17 +224,17 @@ var Router = SPA.Router.extend({
     collection: Collection,
     routes: {
         '': 'home',
-        'page': 'discovery',
+        'discovery': 'discovery',
         'product/:name': 'product'
     },
     home: function() {
-        this.go({ name: "home",      title: 'Home &ndash; My SPA' });
+        this.go({ title: 'Home &ndash; My SPA' });
     },
     discovery: function() {
-        this.go({ name: "discovery", title: 'Discovery &ndash; My SPA' });
+        this.go({ title: 'Discovery &ndash; My SPA' });
     }
     product: function(name) {
-        this.go({ name: "product",   title: name + ' &ndash; My SPA', productName: name });
+        this.go({ title: name + ' &ndash; My SPA', productName: name });
     }
 });
 ```

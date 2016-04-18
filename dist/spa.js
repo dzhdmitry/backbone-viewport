@@ -1,4 +1,4 @@
-/*! Single page application framework - v0.1.5 - 2016-04-16
+/*! Single page application framework - v0.2.0 - 2016-04-18
 * https://github.com/dzhdmitry/spa
 * Copyright (c) 2016 Dmitry Dzhuleba;
 * Licensed MIT
@@ -66,7 +66,6 @@
     SPA.Model = Backbone.Model.extend({
         idAttribute: "uri",
         defaults: {
-            name: "",     // Name/type of page. Use it to find a template for page
             active: true, // Indicates visibility of a page. When true, page container is set `display: block` css style, and `display:none` if false
             title: ""     // Will be set to document's title when page is shown
             // All model's attributes are available in `view.template()`
@@ -152,7 +151,7 @@
          * Read document uri and activate page with given `attributes` (PlainObject).
          * If page not exists in collection, it will be created with given `attributes`, and added to collection.
          *
-         * @param {Object} attributes Contains name, title, ...
+         * @param {Object} attributes
          */
         go: function(attributes) {
             var uri = (this.pushState) ? Backbone.history.getPath() : Backbone.history.getHash(),

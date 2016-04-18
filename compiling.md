@@ -20,17 +20,8 @@ grunt build
 
 Creates `/dist/spa.js` and `/dist.spa.min.js` from `src/spa.js`.
 
-## Testing
-
-```
-grunt build
-grunt qunit
-```
-
-Build current source code and run tests in `/test/*.html` files.
-
 ```
 grunt default
 ```
 
-Run all tests and make build.
+Build current source code and run tests in `/test/*.html` files.
