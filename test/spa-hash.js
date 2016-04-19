@@ -1,11 +1,12 @@
 $(function() {
     var $viewport = $('#qunit-fixture'),
         $title = $('title'),
+        app = {},
+        router,
         counter = {
             show: 0,
             hide: 0
-        },
-        app = {};
+        };
 
     // 1. SPA setup
     app.View = SPA.View.extend({
@@ -94,14 +95,14 @@ $(function() {
     });
 
     QUnit.testDone(function() {
-        Backbone.history.stop();
+        router.stop();
     });
 
     // 3. Running tests
     QUnit.test("Home", function(assert) {
         var done = assert.async();
 
-        new app.Router({
+        router = new app.Router({
             el: $viewport
         });
 
@@ -119,7 +120,7 @@ $(function() {
     QUnit.test("History .back() and .forward()", function(assert) {
         var done = assert.async();
 
-        new app.Router({
+        router = new app.Router({
             el: $viewport
         });
 
@@ -162,7 +163,7 @@ $(function() {
     QUnit.test("Page with parameter", function(assert) {
         var done = assert.async();
 
-        new app.Router({
+        router = new app.Router({
             el: $viewport
         });
 
@@ -183,7 +184,7 @@ $(function() {
     QUnit.test("Pages with one template", function(assert) {
         var done = assert.async();
 
-        new app.Router({
+        router = new app.Router({
             el: $viewport
         });
 
@@ -228,7 +229,7 @@ $(function() {
     QUnit.test("Static page", function(assert) {
         var done = assert.async();
 
-        new app.Router({
+        router = new app.Router({
             el: $viewport
         });
 
@@ -252,7 +253,7 @@ $(function() {
     QUnit.test("Dynamic page", function(assert) {
         var done = assert.async();
 
-        new app.Router({
+        router = new app.Router({
             el: $viewport
         });
 

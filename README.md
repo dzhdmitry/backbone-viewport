@@ -78,7 +78,7 @@ router.go({ name: "discovery", content: "" /* , ... */ });
 
 ##### .render()
 
-Renders model attributes by [template](templatedata).
+Renders model attributes by [template](#templatedata).
 
 ##### .toggle(active)
 
@@ -183,6 +183,10 @@ var router = new Router({
 ##### .start()
 
 Run `Backbone.history.start()` with options `pushState` and `root` provided in [constructor](#constructor--initializeoptions).
+
+##### .stop()
+
+Stop watching uri changes (Run `Backbone.history.stop()`).
 
 ##### .go(attributes[, options])
 

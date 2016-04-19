@@ -153,13 +153,19 @@
             SPA.Router.__super__.initialize.call(this, options);
         },
         /**
-         * Run `Backbone.history.start()` with options `pushState` and `root` provided in constructor
+         * Run `Backbone.history.start()` with options `pushState` and `root` provided in constructor.
          */
         start: function() {
             Backbone.history.start({
                 pushState: this.pushState,
                 root: this.root
             });
+        },
+        /**
+         * Stop watching uri changes (Run `Backbone.history.stop()`).
+         */
+        stop: function() {
+            Backbone.history.stop();
         },
         /**
          * Read document uri and activate page with given `attributes` (PlainObject).
