@@ -277,4 +277,29 @@ $(function() {
             }, 100);
         }, 100);
     });
+
+    QUnit.test("Initialized pages", function(assert) {
+        var done = assert.async();
+
+        router = new app.Router({
+            el: $viewport,
+            pages: [
+                {
+                    uri: '!/first',
+                    name: 'first',
+                    title: 'First page &ndash; Testing'
+                }, {
+                    uri: '!/dynamic',
+                    name: 'dynamic',
+                    title: 'Dynamic page &ndash; Testing'
+                }
+            ]
+        });
+
+        setTimeout(function() {
+            assert.equal($viewport.find('div.my-page').length, 3, "Two pages in viewport");
+
+            done();
+        }, 100);
+    });
 });

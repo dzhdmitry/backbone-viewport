@@ -161,12 +161,13 @@ Creates new instance of `SPA.Router`.
 If `start=true`, runs `Backbone.history.start()` when initialized and begin listening to URL changes. 
 Options are:
 
-| Name      | Type    | Default     | Description |
-| --------- | ----    | ----------- | ----------- |
-| el        | jQuery  | `$('body')` | Type of collection used by Router. |
-| start     | boolean | true        | Start to listen URI changes when initialized (Run [Router.start()](#start)). |
-| pushState | boolean | false       | Defines which type of routing to use: `history.pushState` or hash. Will be transmitted to `Backbone.history.start()` |
-| root      | string  | '/'         | *Make sense only if pushState=true* Will be transmitted to `Backbone.history.start()` |
+| Name      | Type     | Default     | Description |
+| --------- | -------- | ----------- | ----------- |
+| el        | jQuery   | `$('body')` | Type of collection used by Router. |
+| start     | boolean  | true        | Start to listen URI changes when initialized (Run [Router.start()](#start)). |
+| pushState | boolean  | false       | Defines which type of routing to use: `history.pushState` or hash. Will be transmitted to `Backbone.history.start()`. |
+| root      | string   | '/'         | *Make sense only if pushState=true* Will be transmitted to `Backbone.history.start()`. |
+| pages     | Object[] | []          | Initial array of pages. |
 
 ```javascript
 var Router = SPA.Router.extend({

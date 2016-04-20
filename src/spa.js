@@ -97,14 +97,25 @@
         model: SPA.Model,
         view: SPA.View,
         /**
-         * Create view for given model
+         * Create view for given model[s]
          *
-         * @param {SPA.Model} model
+         * @param {SPA.Model|SPA.Model[]} model
          */
         createView: function(model) {
-            var view = new this.view({model: model});
+            var self = this;
 
-            this.el.append(view.render().el);
+            function fn(page) {
+                var view = new self.view({model: page});
+
+                self.el.append(view.render().el);
+                view.toggleActive();
+            }
+
+            if (_.isArray(model)) {
+                _.each(model, fn);
+            } else {
+                fn(model);
+            }
         },
         /**
          * Open page with given uri and hide others.
@@ -130,7 +141,8 @@
                     el: Backbone.$('body'),
                     start: true,
                     pushState: false,
-                    root: '/'
+                    root: '/',
+                    pages: []
                 },
                 settings = _.extend({}, defaults, options);
 
@@ -142,6 +154,12 @@
             this.listenTo(this.pages, 'add', function(model, collection) {
                 collection.createView(model);
             });
+
+            this.listenTo(this.pages, 'reset', function(collection) {
+                collection.createView(collection.models);
+            });
+
+            this.pages.reset(settings.pages);
 
             if (settings.start) {
                 Backbone.history.start({
