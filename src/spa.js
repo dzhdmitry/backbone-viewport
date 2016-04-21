@@ -194,27 +194,24 @@
          */
         go: function(attributes, options) {
             var uri = (this.pushState) ? Backbone.history.getPath() : Backbone.history.getHash(),
-                modelAttributes = _.extend({uri: uri}, attributes),
-                model;
+                modelAttributes = _.extend({uri: uri}, attributes);
 
             var settings = _.extend({}, {
                 force: false
             }, options);
 
             if (settings.force) {
-                model = this.pages.add(modelAttributes, {
+                var existsBefore = this.pages.has(modelAttributes.uri);
+
+                var model = this.pages.add(modelAttributes, {
                     merge: true
                 });
 
-                model.trigger("render");
-            } else {
-                var existsBefore = this.pages.has(modelAttributes.uri);
-
-                model = this.pages.add(modelAttributes);
-
-                if (!existsBefore) {
+                if (existsBefore) {
                     model.trigger("render");
                 }
+            } else {
+                this.pages.add(modelAttributes);
             }
 
             this.pages.open(modelAttributes.uri);

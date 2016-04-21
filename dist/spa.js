@@ -1,4 +1,4 @@
-/*! Single page application framework - v0.2.5 - 2016-04-20
+/*! Single page application framework - v0.2.6 - 2016-04-21
 * https://github.com/dzhdmitry/spa
 * Copyright (c) 2016 Dmitry Dzhuleba;
 * Licensed MIT
@@ -199,27 +199,24 @@
          */
         go: function(attributes, options) {
             var uri = (this.pushState) ? Backbone.history.getPath() : Backbone.history.getHash(),
-                modelAttributes = _.extend({uri: uri}, attributes),
-                model;
+                modelAttributes = _.extend({uri: uri}, attributes);
 
             var settings = _.extend({}, {
                 force: false
             }, options);
 
             if (settings.force) {
-                model = this.pages.add(modelAttributes, {
+                var existsBefore = this.pages.has(modelAttributes.uri);
+
+                var model = this.pages.add(modelAttributes, {
                     merge: true
                 });
 
-                model.trigger("render");
-            } else {
-                var existsBefore = this.pages.has(modelAttributes.uri);
-
-                model = this.pages.add(modelAttributes);
-
-                if (!existsBefore) {
+                if (existsBefore) {
                     model.trigger("render");
                 }
+            } else {
+                this.pages.add(modelAttributes);
             }
 
             this.pages.open(modelAttributes.uri);
