@@ -297,7 +297,7 @@ $(function() {
         });
 
         setTimeout(function() {
-            assert.equal($viewport.find('div.my-page').length, 3, "Two pages in viewport");
+            assert.equal($viewport.find('div.my-page').length, 3, "Three pages in viewport");
 
             done();
         }, 100);

@@ -68,6 +68,12 @@
             title: ""      // Will be set to document's title when page is shown
             // All model's attributes are available in `view.template()`
         },
+        getFetchOptions: function() {
+            return {};
+        },
+        url: function() {
+            return "/" + this.get("uri");
+        },
         /**
          * Set `page.active` property to `true` (must cause view rendering) and copy page's title to document.
          * Triggers `shown` event.
@@ -118,6 +124,42 @@
             }
         },
         /**
+         * Create page model, add to collection and create view if needed
+         *
+         * @param {Object} attributes
+         * @param {Boolean} createView
+         * @returns {SPA.Model}
+         */
+        addPage: function(attributes, createView) {
+            var model = this.add(attributes);
+
+            if (createView) {
+                this.createView(model);
+            }
+
+            return model;
+        },
+        /**
+         * Merge page with attributes, create view or re-render
+         *
+         * @param {Object} attributes
+         * @param {Boolean} createView
+         * @returns {*}
+         */
+        mergePage: function(attributes, createView) {
+            var model = this.add(attributes, {
+                merge: true
+            });
+
+            if (createView) {
+                this.createView(model);
+            } else {
+                model.trigger("render");
+            }
+
+            return model;
+        },
+        /**
          * Open page with given uri and hide others.
          * Find and `show()` page with uri, `hide()` other pages.
          *
@@ -151,12 +193,10 @@
             this.pages = new this.collection();
             this.pages.el = settings.el;
 
-            this.listenTo(this.pages, 'add', function(model, collection) {
-                collection.createView(model);
-            });
-
             this.listenTo(this.pages, 'reset', function(collection) {
-                collection.createView(collection.models);
+                collection.each(function(m) {
+                    collection.createView(m);
+                });
             });
 
             this.pages.reset(settings.pages);
@@ -194,27 +234,52 @@
          */
         go: function(attributes, options) {
             var uri = (this.pushState) ? Backbone.history.getPath() : Backbone.history.getHash(),
-                modelAttributes = _.extend({uri: uri}, attributes);
+                modelAttributes = _.extend({uri: uri}, attributes),
+                collection = this.pages;
 
             var settings = _.extend({}, {
-                force: false
+                force: false,
+                load: false
             }, options);
 
-            if (settings.force) {
-                var existsBefore = this.pages.has(modelAttributes.uri);
-
-                var model = this.pages.add(modelAttributes, {
-                    merge: true
-                });
-
-                if (existsBefore) {
-                    model.trigger("render");
-                }
-            } else {
-                this.pages.add(modelAttributes);
+            function openPage() {
+                collection.open(modelAttributes.uri);
             }
 
-            this.pages.open(modelAttributes.uri);
+            function fetchPage(model, createView) {
+                var defaults = {
+                    success: function(data) {
+                        collection.mergePage(data, createView);
+                        openPage();
+                    }
+                };
+
+                model.fetch(_.extend(defaults, model.getFetchOptions()));
+            }
+
+            if (this.pages.has(modelAttributes.uri)) {
+                if (settings.force) {
+                    if (settings.load) {
+                        var existed = this.pages.get(modelAttributes.uri);
+
+                        fetchPage(existed, false);
+                    } else {
+                        this.pages.mergePage(modelAttributes, false);
+                        openPage();
+                    }
+                } else {
+                    openPage();
+                }
+            } else {
+                if (settings.load) {
+                    var model = this.pages.addPage(modelAttributes, false);
+
+                    fetchPage(model, true);
+                } else {
+                    this.pages.addPage(modelAttributes, true);
+                    openPage();
+                }
+            }
         }
     });
 

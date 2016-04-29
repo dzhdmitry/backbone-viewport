@@ -199,7 +199,12 @@ URI is generated automatically:
 
 If page has been already added in collection, it will be just [shown](#show), none of attributes will be updated and view will not be re-rendered.
 
-Provide `{force: true}` in options to update properties of model and make it re-render its view.
+Options are:
+
+| Name  | Type    | Default | Description |
+| ----- | ------- | ------- | ----------- |
+| force | boolean | false   | Update properties of model and make it re-render its view if page is already exists. |
+| load  | boolean | false   | (_For pushState:true_) Make request to server with url=page's uri (run `SPA.Model.fetch()`), update model with received data |
 
 `SPA.Router.go()` is not supposed to be used anywhere except for Router's actions.
 
