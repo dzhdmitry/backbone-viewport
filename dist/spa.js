@@ -1,4 +1,4 @@
-/*! Single page application framework - v0.3.0 - 2016-04-29
+/*! Single page application framework - v0.3.0 - 2016-11-04
 * https://github.com/dzhdmitry/spa
 * Copyright (c) 2016 Dmitry Dzhuleba;
 * Licensed MIT
@@ -263,24 +263,32 @@
             }
 
             if (this.pages.has(modelAttributes.uri)) {
+                // Page is already in collection...
                 if (settings.force) {
+                    // ...but re-rendering is required although
                     if (settings.load) {
+                        // and loading is required too
                         var existed = this.pages.get(modelAttributes.uri);
 
                         fetchPage(existed, false);
                     } else {
+                        // merge attributes to existing page
                         this.pages.mergePage(modelAttributes, false);
                         openPage();
                     }
                 } else {
+                    // ...and just needs to be shown
                     openPage();
                 }
             } else {
+                // Page is not in collection
                 if (settings.load) {
+                    // and loading is required
                     var model = this.pages.addPage(modelAttributes, false);
 
                     fetchPage(model, true);
                 } else {
+                    // and just needs to merge attributes and to be shown
                     this.pages.addPage(modelAttributes, true);
                     openPage();
                 }

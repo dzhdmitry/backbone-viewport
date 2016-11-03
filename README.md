@@ -112,6 +112,31 @@ Triggers `shown` event.
 Set `page.active` property to `false`.
 Triggers `hidden` event.
 
+##### .getFetchOptions()
+
+Extend this method to provide options for ajax fetch call:
+
+```javascript
+SPA.Model.extend({
+    // ...
+    getFetchOptions: function() {
+        var defaults = app.Model.__super__.getFetchOptions.call();
+
+        return _.extend({}, defaults, {
+            beforeSend: function() {
+                // custom beforeSend callback
+            },
+            error: function() {
+                // custom error handling
+            },
+            complete: function() {
+                // custom callback on complete
+            }
+        });
+    }
+});
+```
+
 #### Events
 
 | Event type | Description |
@@ -221,7 +246,7 @@ router.navigate("product/1", {
 
 ## Extending classes
 
-SPA classes are unsuitable to usage and must be extended.
+SPA classes are unsuitable for end use and must be extended.
 At least, `.template()` must be provided for `SPA.View`:
 
 ```javascript
