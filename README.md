@@ -117,10 +117,10 @@ Triggers `hidden` event.
 Extend this method to provide options for ajax fetch call:
 
 ```javascript
-SPA.Model.extend({
+var Page = SPA.Model.extend({
     // ...
     getFetchOptions: function() {
-        var defaults = app.Model.__super__.getFetchOptions.call();
+        var defaults = Page.__super__.getFetchOptions.call();
 
         return _.extend({}, defaults, {
             beforeSend: function() {
@@ -139,11 +139,22 @@ SPA.Model.extend({
 
 #### Events
 
-| Event type | Description |
+| Event type | Description  |
 | ---------- | ------------ |
-| shown      | Fires when page was hidden and became shown. |
-| hidden     | Fires when page was shown and became hidden. |
+| shown      | Fires when page was hidden and became shown.   |
+| hidden     | Fires when page was shown and became hidden.   |
 | render     | Fires when page content needed to be rendered. |
+
+```javascript
+var Page = SPA.Model.extend({
+    initialize: function() {
+        this.on("shown", this.onShown);
+    },
+    onShown: function() {
+        // event handling
+    }
+});
+```
 
 ### SPA.Collection
 
