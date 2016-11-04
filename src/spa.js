@@ -229,6 +229,14 @@
             Backbone.history.stop();
         },
         /**
+         * Returns current route depends on router type (pushState or hash)
+         *
+         * @returns {String}
+         */
+        getCurrentRoute: function() {
+            return (this.pushState) ? Backbone.history.getPath() : Backbone.history.getHash();
+        },
+        /**
          * Read document uri and activate page with given `attributes` (PlainObject).
          * If page not exists in collection, it will be created with given `attributes`, and added to collection.
          *
@@ -236,7 +244,7 @@
          * @param {Object=} options
          */
         go: function(attributes, options) {
-            var uri = (this.pushState) ? Backbone.history.getPath() : Backbone.history.getHash(),
+            var uri = this.getCurrentRoute(),
                 modelAttributes = _.extend({uri: uri}, attributes),
                 collection = this.pages;
 
