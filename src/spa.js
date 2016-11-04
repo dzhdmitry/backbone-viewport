@@ -142,7 +142,7 @@
          *
          * @param {Object} attributes
          * @param {Boolean} createView
-         * @returns {*}
+         * @returns {SPA.Model}
          */
         mergePage: function(attributes, createView) {
             var model = this.add(attributes, {
@@ -156,6 +156,27 @@
             }
 
             return model;
+        },
+        /**
+         * Add page with existing view
+         *
+         * @param {Object} attributes `uri` is mandatory
+         * @param {*} $el
+         * @returns {SPA.Model}
+         */
+        pushPage: function(attributes, $el) {
+            var defaults = {
+                    active: true
+                },
+                modelAttributes = _.extend({}, defaults, attributes),
+                page = new this.model(modelAttributes),
+                view = new this.view({model: page});
+
+            view.$el = $el;
+
+            this.add(page);
+
+            return page;
         },
         /**
          * Open page with given uri and hide others.
