@@ -181,12 +181,14 @@
                     el: Backbone.$('body'),
                     start: true,
                     pushState: false,
+                    silent: false,
                     root: '/',
                     pages: []
                 },
                 settings = _.extend({}, defaults, options);
 
             this.pushState = settings.pushState;
+            this.silent = settings.silent;
             this.root = settings.root;
             this.pages = new this.collection();
             this.pages.el = settings.el;
@@ -200,22 +202,25 @@
             this.pages.reset(settings.pages);
 
             if (settings.start) {
-                Backbone.history.start({
-                    pushState: settings.pushState,
-                    root: settings.root
-                });
+                this.start();
             }
 
             SPA.Router.__super__.initialize.call(this, options);
         },
         /**
-         * Run `Backbone.history.start()` with options `pushState` and `root` provided in constructor.
+         * Run `Backbone.history.start()` with `pushState` and `root` provided in constructor and overridden by provided directly.
+         *
+         * @param {Object=} options
          */
-        start: function() {
-            Backbone.history.start({
-                pushState: this.pushState,
-                root: this.root
-            });
+        start: function(options) {
+            var defaults = {
+                    pushState: this.pushState,
+                    root: this.root,
+                    silent: this.silent
+                },
+                settings = _.extend({}, defaults, options);
+
+            Backbone.history.start(settings);
         },
         /**
          * Stop watching uri changes (Run `Backbone.history.stop()`).

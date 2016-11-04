@@ -201,6 +201,7 @@ Options are:
 | el        | jQuery   | `$('body')` | Type of collection used by Router. |
 | start     | boolean  | true        | Start to listen URI changes when initialized (Run [Router.start()](#start)). |
 | pushState | boolean  | false       | Defines which type of routing to use: `history.pushState` or hash. Will be transmitted to `Backbone.history.start()`. |
+| silent    | boolean  | false       | Tells router not to navigate (in case if page is already rendered). Will be transmitted to `Backbone.history.start()`. |
 | root      | string   | '/'         | *Make sense only if pushState=true* Will be transmitted to `Backbone.history.start()`. |
 | pages     | Object[] | []          | Initial array of pages. |
 
@@ -216,9 +217,10 @@ var router = new Router({
 });
 ```
 
-##### .start()
+##### .start([options])
 
-Run `Backbone.history.start()` with options `pushState` and `root` provided in [constructor](#constructor--initializeoptions).
+Run `Backbone.history.start()` with `pushState`, `root` and `silent` provided
+in [constructor](#constructor--initializeoptions) and overridden by provided directly.
 
 ##### .stop()
 
