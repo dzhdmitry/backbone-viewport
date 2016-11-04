@@ -64,8 +64,7 @@
     SPA.Model = Backbone.Model.extend({
         idAttribute: "uri",
         defaults: {
-            active: false, // Indicates visibility of a page. When true, page container is set `display: block` css style, and `display:none` if false
-            title: ""      // Will be set to document's title when page is shown
+            active: false // Indicates visibility of a page. When true, page container is set `display: block` css style, and `display:none` if false
             // All model's attributes are available in `view.template()`
         },
         getFetchOptions: function() {
@@ -75,12 +74,11 @@
             return "/" + this.get("uri");
         },
         /**
-         * Set `page.active` property to `true` (must cause view rendering) and copy page's title to document.
+         * Set `page.active` property to `true` (must cause view rendering).
          * Triggers `shown` event.
          */
         show: function() {
             this.set("active", true);
-            Backbone.$('title').html(this.get("title"));
 
             if (this.hasChanged("active")) {
                 this.trigger("shown");

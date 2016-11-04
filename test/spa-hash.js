@@ -23,6 +23,8 @@ $(function() {
         initialize: function(attributes, options) {
             this.on("shown", function() {
                 counter.show++;
+
+                $title.html(this.get("title"));
             });
 
             this.on("hidden", function() {

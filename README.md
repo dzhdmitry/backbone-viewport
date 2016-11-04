@@ -94,9 +94,8 @@ Contains page's attributes and data, which can be rendered in view.
 
 | Name   | Type    | Default | Description |
 | ------ | ------- | ------- | ----------- |
-| uri    | string  |      | *Generated automatically.* Unique identifier of every page. SPA uses `Backbone.history` methods `getPath()` and `getHash()` for `history.pushState` and hash routing. |
+| uri    | string  |      | *Generated automatically if not given.* Unique identifier of every page. SPA uses `Backbone.history` methods `getPath()` and `getHash()` for `history.pushState` and hash routing. |
 | active | boolean | true | Indicates visibility of a page. When changed, page container is set `display: block` css style if true, and `display:none` if false. Override [SPA.View.toggle()](#toggleactive) to use whatever behaviour. |
-| title  | string  | ''   | Will be set to document's title when page is shown. |
 
 All model's attributes are available in `view.template()`.
 
@@ -104,7 +103,7 @@ All model's attributes are available in `view.template()`.
 
 ##### .show()
 
-Set `page.active` property to `true` and copy page's title to document.
+Set `page.active` property to `true`.
 Triggers `shown` event.
 
 ##### .hide()
@@ -363,3 +362,18 @@ $(document).on('click', 'a.spa-link', function(e) {
 ```
 
 In this example, all hyperlinks with `spa-link` class will be handled to use SPA router instead of common behavior.
+
+## Updating title
+
+SPA does not update browser page's title automatically.
+Page title can be changed on Page `shown` event:
+
+```javascript
+var Page = SPA.Model.extend({
+    initialize: function() {
+        this.on("shown", function() {
+            $("title").html(this.get("title"));
+        });
+    }
+});
+```
