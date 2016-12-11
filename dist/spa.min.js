@@ -1,4 +1,4 @@
-/*! Single page application framework - v0.4.3 - 2016-11-04
+/*! Single page application framework - v0.4.3 - 2016-12-11
 * https://github.com/dzhdmitry/spa
 * Copyright (c) 2016 Dmitry Dzhuleba;
 * Licensed MIT

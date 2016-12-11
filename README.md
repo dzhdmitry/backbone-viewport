@@ -176,6 +176,12 @@ When page is added, new `SPA.View` is created and linked to this page.
 Open page with given uri and hide others.
 Find and `show()` page with uri, `hide()` other pages.
 
+#### .pushPage(attributes, $el)
+
+Create a page with given `attributes` and existing HTML-element (`$el`) and insert into collection.
+Useful for rendering start page without loading data.
+Returns added [page](#spamodel).
+
 ### SPA.Router
 
 Inherited from [Backbone.Router](http://backbonejs.org/#Router). 
@@ -198,7 +204,7 @@ Options are:
 
 | Name      | Type     | Default     | Description |
 | --------- | -------- | ----------- | ----------- |
-| el        | jQuery   | `$('body')` | Type of collection used by Router. |
+| el        | jQuery   | `$('body')` | Container of pages' views. |
 | start     | boolean  | true        | Start to listen URI changes when initialized (Run [Router.start()](#start)). |
 | pushState | boolean  | false       | Defines which type of routing to use: `history.pushState` or hash. Will be transmitted to `Backbone.history.start()`. |
 | silent    | boolean  | false       | Tells router not to navigate (in case if page is already rendered). Will be transmitted to `Backbone.history.start()`. |
