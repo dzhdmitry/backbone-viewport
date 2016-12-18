@@ -42,6 +42,7 @@
             var html = this.template(this.model.toJSON());
 
             this.$el.html(html);
+            this.trigger("rendered");
 
             return this;
         },
@@ -215,8 +216,8 @@
             this.pages.el = settings.el;
 
             this.listenTo(this.pages, 'reset', function(collection) {
-                collection.each(function(m) {
-                    collection.createView(m);
+                collection.each(function(model) {
+                    collection.createView(model);
                 });
             });
 

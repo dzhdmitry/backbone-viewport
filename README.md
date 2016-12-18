@@ -85,6 +85,12 @@ Renders model attributes by [template](#templatedata).
 Set `display: block` css style to page container if `active=true`, or `display:none` if false.
 Override it to use different behaviour.
 
+#### Events
+
+| Event type | Description  |
+| ---------- | ------------ |
+| rendered   | Fires when `.render` was called. |
+
 ### SPA.Model
 
 Inherited from [Backbone.Model](http://backbonejs.org/#Model). 
