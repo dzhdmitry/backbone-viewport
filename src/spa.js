@@ -173,8 +173,7 @@
                 page = new this.model(modelAttributes),
                 view = new this.view({model: page});
 
-            view.$el = $el;
-
+            view.setElement($el);
             this.add(page);
 
             return page;

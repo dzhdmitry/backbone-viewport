@@ -1,4 +1,4 @@
-/*! Single page application framework - v0.4.4 - 2016-12-18
+/*! Single page application framework - v0.4.5 - 2016-12-19
 * https://github.com/dzhdmitry/spa
 * Copyright (c) 2016 Dmitry Dzhuleba;
 * Licensed MIT
@@ -178,8 +178,7 @@
                 page = new this.model(modelAttributes),
                 view = new this.view({model: page});
 
-            view.$el = $el;
-
+            view.setElement($el);
             this.add(page);
 
             return page;
