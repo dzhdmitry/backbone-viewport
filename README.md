@@ -16,9 +16,9 @@ If page for URI exists in Collection, it just shown.
 
 ## Release
 
-[Development version](https://github.com/dzhdmitry/viewport/blob/master/dist/viewport.js)
+[Development version](https://github.com/dzhdmitry/backbone-viewport/blob/master/dist/viewport.js)
 
-[Minimized production version](https://github.com/dzhdmitry/viewport/blob/master/dist/viewport.min.js)
+[Minimized production version](https://github.com/dzhdmitry//backbone-viewport/blob/master/dist/viewport.min.js)
 
 ## Examples
 
