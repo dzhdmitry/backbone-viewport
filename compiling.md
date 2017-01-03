@@ -18,7 +18,7 @@ npm install
 grunt build
 ```
 
-Creates `/dist/spa.js` and `/dist.spa.min.js` from `src/spa.js`.
+Creates `/dist/viewport.js` and `/dist.viewport.min.js` from `src/viewport.js`.
 
 ```
 grunt default

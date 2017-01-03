@@ -16,9 +16,9 @@ If page for URI exists in Collection, it just shown.
 
 ## Release
 
-[Development version](https://github.com/dzhdmitry/spa/blob/master/dist/spa.js)
+[Development version](https://github.com/dzhdmitry/spa/blob/master/dist/viewport.js)
 
-[Minimized production version](https://github.com/dzhdmitry/spa/blob/master/dist/spa.min.js)
+[Minimized production version](https://github.com/dzhdmitry/spa/blob/master/dist/viewport.min.js)
 
 ## Examples
 

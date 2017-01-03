@@ -1,5 +1,5 @@
 module.exports = function(grunt) {
-	var src = ['src/spa.js'],
+	var src = ['src/viewport.js'],
         banner = '/*! <%= pkg.title || pkg.name %> - v<%= pkg.version %> - ' +
             '<%= grunt.template.today("yyyy-mm-dd") %>\n' +
             '<%= pkg.homepage ? "* " + pkg.homepage + "\\n" : "" %>' +
@@ -15,7 +15,7 @@ module.exports = function(grunt) {
 			},
 			build: {
 				src: src,
-				dest: 'dist/spa.min.js'
+				dest: 'dist/viewport.min.js'
 			}
 		},
 		concat: {
@@ -24,7 +24,7 @@ module.exports = function(grunt) {
 			},
 			dist: {
 				src: src,
-				dest: 'dist/spa.js'
+				dest: 'dist/viewport.js'
 			}
 		},
 		qunit: {
