@@ -16,13 +16,13 @@ If page for URI exists in Collection, it just shown.
 
 ## Release
 
-[Development version](https://github.com/dzhdmitry/spa/blob/master/dist/viewport.js)
+[Development version](https://github.com/dzhdmitry/viewport/blob/master/dist/viewport.js)
 
-[Minimized production version](https://github.com/dzhdmitry/spa/blob/master/dist/viewport.min.js)
+[Minimized production version](https://github.com/dzhdmitry/viewport/blob/master/dist/viewport.min.js)
 
 ## Examples
 
-[Example with hash method](http://dzhdmitry.github.io/spa/)
+[Example with hash method](http://dzhdmitry.github.io/viewport/)
 
 ## Classes
 
