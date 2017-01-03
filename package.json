@@ -3,7 +3,7 @@
   "title": "Backbone-Viewport",
   "description": "Tiny single page application framework built on Backbone",
   "homepage": "https://github.com/dzhdmitry/backbone-viewport",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "author": {
     "name": "Dmitry Dzhuleba",
     "email": "dmitry.dzhuleba@gmail.com"

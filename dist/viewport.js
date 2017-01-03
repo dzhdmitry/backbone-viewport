@@ -1,7 +1,7 @@
-/*! Single page application framework - v0.5.0 - 2017-01-03
-* https://github.com/dzhdmitry/spa
+/*! Backbone-Viewport - v0.5.1 - 2017-01-03
+* https://github.com/dzhdmitry/backbone-viewport
 * Copyright (c) 2017 Dmitry Dzhuleba;
-* Licensed MIT
+* Licensed 
 */
 (function (root, factory) {
     if (typeof define === 'function' && define.amd) {
