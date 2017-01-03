@@ -212,7 +212,7 @@ Options are:
 | Name      | Type     | Default     | Description |
 | --------- | -------- | ----------- | ----------- |
 | el        | jQuery   | `$('body')` | Container of pages' views. |
-| start     | boolean  | true        | Start to listen URI changes when initialized (Run [Router.start()](#start)). |
+| start     | boolean  | true        | Start to listen URI changes when initialized (Run [Router.start()](#startoptions)). |
 | pushState | boolean  | false       | Defines which type of routing to use: `history.pushState` or hash. Will be transmitted to `Backbone.history.start()`. |
 | silent    | boolean  | false       | Tells router not to navigate (in case if page is already rendered). Will be transmitted to `Backbone.history.start()`. |
 | root      | string   | '/'         | *Make sense only if pushState=true* Will be transmitted to `Backbone.history.start()`. |
