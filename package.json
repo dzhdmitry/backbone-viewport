@@ -1,30 +1,25 @@
 {
-	"name": "backbone-viewport",
-	"title": "Single page application framework",
-	"description": "Tiny single page application framework built on Backbone",
-	"homepage": "https://github.com/dzhdmitry/spa",
-	"version": "0.5.0",
-	"author": {
-		"name": "Dmitry Dzhuleba",
-		"email": "dzhdmitry@gmail.com"
-	},
-	"scripts": {
-		"test": "grunt qunit"
-	},
-	"repository": {
-		"type": "git",
-		"url": "git://github.com/dzhdmitry/spa.git"
-	},
-	"licenses": [
-		{
-			"type": "MIT",
-			"url": "https://github.com/dzhdmitry/spa/blob/master/LICENSE"
-		}
-	],
-	"devDependencies": {
-		"grunt": "~1.0.1",
-		"grunt-contrib-uglify": "~1.0.1",
-		"grunt-contrib-qunit": "~1.2.0",
-		"grunt-contrib-concat": "~1.0.0"
-	}
+  "name": "backbone-viewport",
+  "title": "Backbone-Viewport",
+  "description": "Tiny single page application framework built on Backbone",
+  "homepage": "https://github.com/dzhdmitry/backbone-viewport",
+  "version": "0.5.0",
+  "author": {
+    "name": "Dmitry Dzhuleba",
+    "email": "dzhdmitry@gmail.com"
+  },
+  "scripts": {
+    "test": "grunt qunit"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/dzhdmitry/backbone-viewport.git"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "grunt": "~1.0.1",
+    "grunt-contrib-uglify": "~1.0.1",
+    "grunt-contrib-qunit": "~1.2.0",
+    "grunt-contrib-concat": "~1.0.0"
+  }
 }
