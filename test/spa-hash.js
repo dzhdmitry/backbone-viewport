@@ -8,8 +8,8 @@ $(function() {
             hide: 0
         };
 
-    // 1. SPA setup
-    app.View = SPA.View.extend({
+    // 1. Viewport setup
+    app.View = Viewport.View.extend({
         className: 'my-page',
         template: function(data) {
             var template = $('#page-' + this.model.get("name")),
@@ -19,7 +19,7 @@ $(function() {
         }
     });
 
-    app.Model = SPA.Model.extend({
+    app.Model = Viewport.Model.extend({
         initialize: function(attributes, options) {
             this.on("shown", function() {
                 counter.show++;
@@ -35,12 +35,12 @@ $(function() {
         }
     });
 
-    app.Collection = SPA.Collection.extend({
+    app.Collection = Viewport.Collection.extend({
         view: app.View,
         model: app.Model
     });
 
-    app.Router = SPA.Router.extend({
+    app.Router = Viewport.Router.extend({
         collection: app.Collection,
         routes: {
             '': 'home',

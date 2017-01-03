@@ -1,28 +1,28 @@
-/*! Single page application framework - v0.4.5 - 2016-12-19
+/*! Single page application framework - v0.5.0 - 2017-01-03
 * https://github.com/dzhdmitry/spa
-* Copyright (c) 2016 Dmitry Dzhuleba;
+* Copyright (c) 2017 Dmitry Dzhuleba;
 * Licensed MIT
 */
 (function (root, factory) {
     if (typeof define === 'function' && define.amd) {
         define(['underscore', 'backbone'], factory);
     } else {
-        root.SPA = factory(root._, root.Backbone);
+        root.Viewport = factory(root._, root.Backbone);
     }
 }(this, function(_, Backbone) {
-    var SPA = {};
+    var Viewport = {};
 
     if (!_) {
-        console.error("Underscore is required by SPA");
+        console.error("Underscore is required by Backbone-Viewport");
         return;
     }
 
     if (!Backbone) {
-        console.error("Backbone is required by SPA");
+        console.error("Backbone is required by Backbone-Viewport");
         return;
     }
 
-    SPA.View = Backbone.View.extend({
+    Viewport.View = Backbone.View.extend({
         tagName: "div",
         initialize: function() {
             this.listenTo(this.model, 'render', this.render);
@@ -41,7 +41,7 @@
         /**
          * Renders model attributes by .template() and toggles the container by model's `active` attribute.
          *
-         * @returns {SPA.View}
+         * @returns {Viewport.View}
          */
         render: function() {
             var html = this.template(this.model.toJSON());
@@ -67,7 +67,7 @@
         }
     });
 
-    SPA.Model = Backbone.Model.extend({
+    Viewport.Model = Backbone.Model.extend({
         idAttribute: "uri",
         defaults: {
             active: false // Indicates visibility of a page. When true, page container is set `display: block` css style, and `display:none` if false
@@ -103,13 +103,13 @@
         }
     });
 
-    SPA.Collection = Backbone.Collection.extend({
-        model: SPA.Model,
-        view: SPA.View,
+    Viewport.Collection = Backbone.Collection.extend({
+        model: Viewport.Model,
+        view: Viewport.View,
         /**
          * Create view for given model[s]
          *
-         * @param {SPA.Model|SPA.Model[]} model
+         * @param {Viewport.Model|Viewport.Model[]} model
          */
         createView: function(model) {
             var self = this;
@@ -132,7 +132,7 @@
          *
          * @param {Object} attributes
          * @param {Boolean} createView
-         * @returns {SPA.Model}
+         * @returns {Viewport.Model}
          */
         addPage: function(attributes, createView) {
             var model = this.add(attributes);
@@ -148,7 +148,7 @@
          *
          * @param {Object} attributes
          * @param {Boolean} createView
-         * @returns {SPA.Model}
+         * @returns {Viewport.Model}
          */
         mergePage: function(attributes, createView) {
             var model = this.add(attributes, {
@@ -168,7 +168,7 @@
          *
          * @param {Object} attributes `uri` is mandatory
          * @param {*} $el
-         * @returns {SPA.Model}
+         * @returns {Viewport.Model}
          */
         pushPage: function(attributes, $el) {
             var defaults = {
@@ -200,8 +200,8 @@
         }
     });
 
-    SPA.Router = Backbone.Router.extend({
-        collection: SPA.Collection,
+    Viewport.Router = Backbone.Router.extend({
+        collection: Viewport.Collection,
         initialize: function(options) {
             var defaults = {
                     el: Backbone.$('body'),
@@ -231,7 +231,7 @@
                 this.start();
             }
 
-            SPA.Router.__super__.initialize.call(this, options);
+            Viewport.Router.__super__.initialize.call(this, options);
         },
         /**
          * Run `Backbone.history.start()` with `pushState` and `root` provided in constructor and overridden by provided directly.
@@ -328,5 +328,5 @@
         }
     });
 
-    return SPA;
+    return Viewport;
 }));

@@ -1,10 +1,11 @@
-# SPA
+# backbone-viewport
+
 Tiny single page application framework.
 Based on jQuery and Backbone, it provides an API to create single page applications.
 Supports HTML5 `history.pushState` method and hash routing.
 
-SPA stores pages as Backbone's models with related Views.
-When [URL changes] user goes to some page, it retrieves URI, creates [page Model](#spamodel), renders [page View](#spaview), and put model into [Collection](#spacollection) with unique URI, and [shows](#show) it.
+Viewport stores pages as Backbone's models with related Views.
+When [URL changes] user goes to some page, it retrieves URI, creates [page Model](#viewportmodel), renders [page View](#viewportview), and put model into [Collection](#viewportcollection) with unique URI, and [shows](#show) it.
 If page for URI exists in Collection, it just shown.
 
 ## Requirements
@@ -25,7 +26,7 @@ If page for URI exists in Collection, it just shown.
 
 ## Classes
 
-### SPA.View
+### Viewport.View
 
 Inherited from [Backbone.View](http://backbonejs.org/#View).
 Represents page view. View is rendered on any model's change.
@@ -53,7 +54,7 @@ Here is an example how `.template()` may look like:
 ```
 
 ```javascript
-var View = SPA.View.extend({
+var View = Viewport.View.extend({
     // ...
     template: function(data) {
         var template = $('#template-page-' + this.model.get("name")),
@@ -91,7 +92,7 @@ Override it to use different behaviour.
 | ---------- | ------------ |
 | rendered   | Fires when `.render` was called. |
 
-### SPA.Model
+### Viewport.Model
 
 Inherited from [Backbone.Model](http://backbonejs.org/#Model). 
 Contains page's attributes and data, which can be rendered in view.
@@ -100,8 +101,8 @@ Contains page's attributes and data, which can be rendered in view.
 
 | Name   | Type    | Default | Description |
 | ------ | ------- | ------- | ----------- |
-| uri    | string  |      | *Generated automatically if not given.* Unique identifier of every page. SPA uses `Backbone.history` methods `getPath()` and `getHash()` for `history.pushState` and hash routing. |
-| active | boolean | true | Indicates visibility of a page. When changed, page container is set `display: block` css style if true, and `display:none` if false. Override [SPA.View.toggle()](#toggleactive) to use whatever behaviour. |
+| uri    | string  |      | *Generated automatically if not given.* Unique identifier of every page. Viewport uses `Backbone.history` methods `getPath()` and `getHash()` for `history.pushState` and hash routing. |
+| active | boolean | true | Indicates visibility of a page. When changed, page container is set `display: block` css style if true, and `display:none` if false. Override [Viewport.View.toggle()](#toggleactive) to use whatever behaviour. |
 
 All model's attributes are available in `view.template()`.
 
@@ -122,7 +123,7 @@ Triggers `hidden` event.
 Extend this method to provide options for ajax fetch call:
 
 ```javascript
-var Page = SPA.Model.extend({
+var Page = Viewport.Model.extend({
     // ...
     getFetchOptions: function() {
         var defaults = Page.__super__.getFetchOptions.call();
@@ -151,7 +152,7 @@ var Page = SPA.Model.extend({
 | render     | Fires when page content needed to be rendered. |
 
 ```javascript
-var Page = SPA.Model.extend({
+var Page = Viewport.Model.extend({
     initialize: function() {
         this.on("shown", this.onShown);
     },
@@ -161,19 +162,19 @@ var Page = SPA.Model.extend({
 });
 ```
 
-### SPA.Collection
+### Viewport.Collection
 
 Inherited from [Backbone.Collection](http://backbonejs.org/#Collection). 
 Stores pages. Accessing pages to add/toggle them. 
-When page is added, new `SPA.View` is created and linked to this page.
+When page is added, new `Viewport.View` is created and linked to this page.
 
 #### Properties
 
 | Name  | Type           | Default     | Description |
 | ----- | -------------- | ----------- | ----------- |
 | el    | jQuery         | `$('body')` | Pages container. Available after router initialized. *Not allowed in `extend()`.* |
-| model | Backbone.Model | SPA.Model   | Type of model used by collection. |
-| view  | Backbone.View  | SPA.View    | Type of view used by collection. Will be created on `collection.add()`. |
+| model | Backbone.Model | Viewport.Model   | Type of model used by collection. |
+| view  | Backbone.View  | Viewport.View    | Type of view used by collection. Will be created on `collection.add()`. |
 
 #### Methods
 
@@ -186,25 +187,25 @@ Find and `show()` page with uri, `hide()` other pages.
 
 Create a page with given `attributes` and existing HTML-element (`$el`) and insert into collection.
 Useful for rendering start page without loading data.
-Returns added [page](#spamodel).
+Returns added [page](#viewportmodel).
 
-### SPA.Router
+### Viewport.Router
 
 Inherited from [Backbone.Router](http://backbonejs.org/#Router). 
 Listening to URI changes and handling assigned events. 
-Contains `SPA.Collection` and accessing it to handle pages.
+Contains `Viewport.Collection` and accessing it to handle pages.
 
 #### Properties
 
 | Name       | Type                | Default        | Description |
 | ---------- | ------------------- | -------------- | ----------- |
-| collection | Backbone.Collection | SPA.Collection | Type of collection used by Router. |
+| collection | Backbone.Collection | Viewport.Collection | Type of collection used by Router. |
 
 Methods:
 
 ##### constructor / .initialize([options])
 
-Creates new instance of `SPA.Router`. 
+Creates new instance of `Viewport.Router`.
 If `start=true`, runs `Backbone.history.start()` when initialized and begin listening to URL changes. 
 Options are:
 
@@ -218,7 +219,7 @@ Options are:
 | pages     | Object[] | []          | Initial array of pages. |
 
 ```javascript
-var Router = SPA.Router.extend({
+var Router = Viewport.Router.extend({
     // extend default router by routes and methods...
 });
 
@@ -253,9 +254,9 @@ Options are:
 | Name  | Type    | Default | Description |
 | ----- | ------- | ------- | ----------- |
 | force | boolean | false   | Update properties of model and make it re-render its view if page is already exists. |
-| load  | boolean | false   | (_For pushState:true_) Make request to server with url=page's uri (run `SPA.Model.fetch()`), update model with received data |
+| load  | boolean | false   | (_For pushState:true_) Make request to server with url=page's uri (run `Viewport.Model.fetch()`), update model with received data |
 
-`SPA.Router.go()` is not supposed to be used anywhere except for Router's actions.
+`Viewport.Router.go()` is not supposed to be used anywhere except for Router's actions.
 
 ##### .navigate(fragment[, options])
 
@@ -270,11 +271,11 @@ router.navigate("product/1", {
 
 ## Extending classes
 
-SPA classes are unsuitable for end use and must be extended.
-At least, `.template()` must be provided for `SPA.View`:
+Viewport classes are unsuitable for end use and must be extended.
+At least, `.template()` must be provided for `Viewport.View`:
 
 ```javascript
-var View = SPA.View.extend({
+var View = Viewport.View.extend({
     className: 'my-page-class',
     template: function(data) {
         return _.template('<h1>Page title: <%= title %><h1> ...content... ', data);
@@ -282,10 +283,10 @@ var View = SPA.View.extend({
 });
 ```
 
-`SPA.Collection` must be extended to use View (also provide model if extended):
+`Viewport.Collection` must be extended to use View (also provide model if extended):
 
 ```javascript
-var Collection = SPA.Collection.extend({
+var Collection = Viewport.Collection.extend({
     view: View
 });
 ```
@@ -294,7 +295,7 @@ Router must be extended to use `Collection` and set `routes` and handlers.
 Refer [Backbone.Router.routes](http://backbonejs.org/#Router-routes) for routing syntax.
 
 ```javascript
-var Router = SPA.Router.extend({
+var Router = Viewport.Router.extend({
     collection: Collection,
     routes: {
         '': 'home',
@@ -330,12 +331,12 @@ When Router is initialized, or when URI is changed, Router begin to look for mat
 In an action, you can analyze route params, and maybe load some data from server to get some data required by page.
 `this` in actions points to current router, so `this.go()` can be called to open a page with its attributes and data.
 
-SPA considers each page as unique for different uri. 
+Viewport considers each page as unique for different uri.
 But it may be useful to have one page for many uris, e.g one homepage for `/` and `/#!/`.
 To make it, provide uri manually when go to a page:
 
 ```javascript
-var Router = SPA.Router.extend({
+var Router = Viewport.Router.extend({
     // ...
     routes: {
         '': 'home',
@@ -354,12 +355,12 @@ var Router = SPA.Router.extend({
 
 ## Handling hyperlinks
 
-SPA does not handle any events on hyperlinks. 
+Viewport does not handle any events on hyperlinks.
 They must be handled manually. 
 Possible example:
 
 ```javascript
-// Ensure router is instance of SPA.Router
+// Ensure router is instance of Viewport.Router
 $(document).on('click', 'a.spa-link', function(e) {
     if (!e.altKey && !e.ctrlKey && !e.metaKey && !e.shiftKey) {
         e.preventDefault();
@@ -375,15 +376,15 @@ $(document).on('click', 'a.spa-link', function(e) {
 });
 ```
 
-In this example, all hyperlinks with `spa-link` class will be handled to use SPA router instead of common behavior.
+In this example, all hyperlinks with `spa-link` class will be handled to use Viewport router instead of common behavior.
 
 ## Updating title
 
-SPA does not update browser page's title automatically.
+Viewport does not update browser page's title automatically.
 Page title can be changed on Page `shown` event:
 
 ```javascript
-var Page = SPA.Model.extend({
+var Page = Viewport.Model.extend({
     initialize: function() {
         this.on("shown", function() {
             $("title").html(this.get("title"));
