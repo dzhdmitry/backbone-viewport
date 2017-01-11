@@ -3,7 +3,16 @@
   "title": "Backbone-Viewport",
   "description": "Tiny single page application framework built on Backbone",
   "homepage": "https://github.com/dzhdmitry/backbone-viewport",
-  "version": "0.5.1",
+  "version": "0.5.2",
+  "keywords": [
+    "backbone",
+    "plugin",
+    "backbone-viewport",
+    "viewport",
+    "spa",
+    "client",
+    "browser"
+  ],
   "author": {
     "name": "Dmitry Dzhuleba",
     "email": "dmitry.dzhuleba@gmail.com"
@@ -16,6 +25,10 @@
     "url": "git://github.com/dzhdmitry/backbone-viewport.git"
   },
   "license": "MIT",
+  "peerDependencies": {
+    "backbone": "~1.3.3",
+    "underscore": "~1.8.3"
+  },
   "devDependencies": {
     "grunt": "~1.0.1",
     "grunt-contrib-uglify": "~1.0.1",

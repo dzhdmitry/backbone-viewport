@@ -18,7 +18,7 @@ npm install
 grunt build
 ```
 
-Creates `/dist/viewport.js` and `/dist.viewport.min.js` from `src/viewport.js`.
+Creates `/dist/backbone-viewport.js` and `/dist/backbone-viewport.min.js` from `src/backbone-viewport.js`.
 
 ```
 grunt default

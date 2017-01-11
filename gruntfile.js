@@ -1,5 +1,5 @@
 module.exports = function(grunt) {
-	var src = ['src/viewport.js'],
+	var src = ['src/backbone-viewport.js'],
         banner = '/*! <%= pkg.title || pkg.name %> - v<%= pkg.version %> - ' +
             '<%= grunt.template.today("yyyy-mm-dd") %>\n' +
             '<%= pkg.homepage ? "* " + pkg.homepage + "\\n" : "" %>' +
@@ -15,7 +15,7 @@ module.exports = function(grunt) {
 			},
 			build: {
 				src: src,
-				dest: 'dist/viewport.min.js'
+				dest: 'dist/backbone-viewport.min.js'
 			}
 		},
 		concat: {
@@ -24,7 +24,7 @@ module.exports = function(grunt) {
 			},
 			dist: {
 				src: src,
-				dest: 'dist/viewport.js'
+				dest: 'dist/backbone-viewport.js'
 			}
 		},
 		qunit: {
