@@ -1,0 +1,26 @@
+{
+  "name": "backbone-viewport",
+  "description": "Tiny single page application framework built on Backbone",
+  "main": "./src/backbone-viewport.js",
+  "authors": [
+    "Dmitry Dzhuleba <dmitry.dzhuleba@gmail.com>"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "backbone",
+    "plugin",
+    "backbone-viewport",
+    "viewport",
+    "spa",
+    "client",
+    "browser"
+  ],
+  "homepage": "https://github.com/dzhdmitry/backbone-viewport",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

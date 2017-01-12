@@ -1,4 +1,4 @@
-/*! Backbone-Viewport - v0.5.2 - 2017-01-11
+/*! backbone-viewport - v0.5.3 - 2017-01-12
 * https://github.com/dzhdmitry/backbone-viewport
 * Copyright (c) 2017 Dmitry Dzhuleba;
 * Licensed 

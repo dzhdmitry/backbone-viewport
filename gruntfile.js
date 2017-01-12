@@ -1,6 +1,6 @@
 module.exports = function(grunt) {
 	var src = ['src/backbone-viewport.js'],
-        banner = '/*! <%= pkg.title || pkg.name %> - v<%= pkg.version %> - ' +
+        banner = '/*! <%= pkg.name %> - v<%= pkg.version %> - ' +
             '<%= grunt.template.today("yyyy-mm-dd") %>\n' +
             '<%= pkg.homepage ? "* " + pkg.homepage + "\\n" : "" %>' +
             '* Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author.name %>;\n' +

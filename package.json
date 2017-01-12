@@ -1,9 +1,8 @@
 {
   "name": "backbone-viewport",
-  "title": "Backbone-Viewport",
   "description": "Tiny single page application framework built on Backbone",
   "homepage": "https://github.com/dzhdmitry/backbone-viewport",
-  "version": "0.5.2",
+  "version": "0.5.3",
   "keywords": [
     "backbone",
     "plugin",
